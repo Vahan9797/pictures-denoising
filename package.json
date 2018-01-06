@@ -11,9 +11,9 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start": "babel-node ./backend-implementation/index.js --plugins=css-modules-transform --watch",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/css/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/css/ --watch --recursive",
+    "start": "nodemon ./backend-implementation/index.js --exec=babel-node --plugins=css-modules-transform",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

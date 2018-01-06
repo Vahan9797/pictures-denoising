@@ -15,7 +15,7 @@ app.engine('js', require('express-react-views').createEngine());
 // <--
 
 app.get('/', (req, res) => {
-	res.render('App');
+	res.render('index');
 });
 
 app.post('/upload-img', (req, res) => {
@@ -25,8 +25,8 @@ app.post('/upload-img', (req, res) => {
 app.get('/download-img', (req, res) => {
 	// TODO
 });
-	
-app.use(express.static('./public'));
+
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 /*app.use((req, res, next) => {

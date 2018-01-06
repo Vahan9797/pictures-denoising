@@ -1,8 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React, { Component } from 'react';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+class DefaultLayout extends Component {
+	render() {
+		return(
+			<html lang="en">
+				<head>
+					<meta charSet="utf-8"/>
+				  <meta name="description" content="Pictures Denoising"/>
+				  <title>Pictures Denoising</title>
+					<link rel="stylesheet" type="text/css" href="css/index.css"/>	
+				</head>
+				<body>
+					<App />
+				</body>
+			</html>
+		)
+	}
+}
+
+export default DefaultLayout;
