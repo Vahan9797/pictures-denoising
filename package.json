@@ -6,13 +6,13 @@
     "express": "^4.16.2",
     "express-react-views": "^0.10.4",
     "node-sass-chokidar": "0.0.3",
+    "nodemon": "^1.14.8",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/css/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o public/css/ --watch --recursive",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/index.scss -o public/css/",
     "start": "nodemon ./backend-implementation/index.js --exec=babel-node --plugins=css-modules-transform",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
