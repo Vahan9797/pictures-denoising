@@ -29,7 +29,7 @@ app.get('/download-img', (req, res) => {
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
   let err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -41,6 +41,6 @@ app.use((err, req, res, next) => {
 	  message: err.message,
 	  error: err
 	});
-});*/
+});
 
 app.listen('8080', () => console.log('Listening to port 8080'));

@@ -6,6 +6,7 @@ declare -r importedFiles=$(cat $(pwd)/src/index.scss | grep -e @import)
 declare -r scssFiles=$(cd $(pwd)/src/Components/styles && ls -l | grep -o [A-Z/a-z/0-9/_]*.scss)
 declare -i addedFiles=0
 
+# --scss argument imports *.scss files from src/Components/styles/ into src/index.scss before compiling has started
 if [ "$1" = "--scss" ]; then
 	echo "Adding new SCSS files to index.scss if they exist..."
 
