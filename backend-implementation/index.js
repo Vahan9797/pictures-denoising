@@ -2,11 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-/*const babelConfig = require('babel-register')({
-	ignore: ["*.css", "*.scss", "*.svg"],
-	only: /src/,
-	extensions: ['.jsx', '.js']
-});*/
 
 // Setting up react server-rendering -->
 app.set('views', path.join(__dirname, '/../src'));
