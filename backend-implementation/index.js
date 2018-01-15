@@ -6,7 +6,7 @@ const app = express();
 // Setting up react server-rendering -->
 app.set('views', path.join(__dirname, '/../src'));
 app.set('view engine', 'js');
-app.engine('js', require('express-react-views').createEngine());
+app.engine('js', require('express-react-views').createEngine({ beautify: true }));
 // <--
 
 app.get('/', (req, res) => {

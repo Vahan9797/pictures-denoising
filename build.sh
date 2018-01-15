@@ -29,18 +29,15 @@ if [ "$1" = "--scss" ]; then
 		fi
 	done < <(echo $scssFiles | tr " " "\n")
 
+	echo ""
 	if [ $addedFiles = 0 ]; then
-		echo ""
 		echo "No new files added."
-		echo ""
 	else
-		echo ""
 		echo "Total files added: $addedFiles"
-		echo ""
 	fi	
-
+	echo ""
 	echo "SCSS operations finished. Preparing to compile..."
 	echo ""
 fi
-echo "Compiling scss files..." && npm run build-css
+echo "Compiling scss files..." && npm run build
 echo "Launching server on port 8080..." && npm start

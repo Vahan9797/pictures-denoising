@@ -13,7 +13,10 @@ class DefaultLayout extends Component {
 					<link rel="stylesheet" type="text/css" href="css/index.css"/>
 				</head>
 				<body>
-					<App />
+					<div id="react-root" dangerouslySetInnerHTML={{
+						__html: ReactDOMServer.renderToString(<App />)
+					}}></div>
+					<script src="bundle.js"></script>
 				</body>
 			</html>
 		)
