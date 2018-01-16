@@ -6,7 +6,7 @@ class Uploader extends Component {
 		super(props);
 
 		this.state = {
-			dropZoneMsg: '',
+			dropZoneMsg: 'Drag and Drop or Click on area to upload file(s)',
 			multipleFileUpload: false,
 			validFiles: false,
 			isUploading: false
