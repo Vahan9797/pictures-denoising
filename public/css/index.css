@@ -10,7 +10,7 @@ body {
     height: 80px; }
   .App .App-header {
     background-color: #222;
-    height: 80px;
+    height: 120px;
     padding: 20px;
     color: white; }
   .App .App-title {
@@ -23,3 +23,28 @@ body {
     transform: rotate(0deg); }
   to {
     transform: rotate(360deg); } }
+
+.ErrorPage {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; }
+  .ErrorPage > * {
+    line-height: 2; }
+  .ErrorPage .error-status {
+    font-size: 40px;
+    color: red; }
+  .ErrorPage .error-message {
+    max-width: 400px;
+    font-smoothing: antialiased;
+    font-size: 44px;
+    color: #0f0f0f; }
+
+.Uploader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; }
+  .Uploader > * {
+    line-height: 2; }

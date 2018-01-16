@@ -1,0 +1,22 @@
+.ErrorPage {
+	height: 30vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	& > * {
+		line-height: 2;
+	}
+
+	.error-status {
+		font-size: 40px;
+		color: red;
+	}
+
+	.error-message {
+		max-width: 400px;
+		font-smoothing: antialiased;
+		font-size: 44px;
+		color: #0f0f0f;
+	}
+}

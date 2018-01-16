@@ -39,5 +39,5 @@ if [ "$1" = "--scss" ]; then
 	echo "SCSS operations finished. Preparing to compile..."
 	echo ""
 fi
-echo "Compiling scss files..." && npm run build
+echo "Compiling scss files and client-side bundle..." && npm run build
 echo "Launching server on port 8080..." && npm start

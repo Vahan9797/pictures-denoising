@@ -14,15 +14,17 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload-img', (req, res) => {
-	// TODO
+	
 });
 
 app.get('/download-img', (req, res) => {
 	// TODO
 });
 
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
+app.use('/scripts', express.static('node_modules/bootstrap/dist'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   let err = new Error('Not Found');
@@ -31,10 +33,12 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-	res.status(err.status || 500);
-	res.render('error', {
-	  message: err.message,
-	  error: err
+	defaultCase = new Error('Internal Server Error');
+	defaultCase.status = 500;
+
+	res.status(err.status || defaultCase.status).render('index', {
+	  errorMsg: err.message || defaultCase.message,
+	  error: err || defaultCase
 	});
 });
 

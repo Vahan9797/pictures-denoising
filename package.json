@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "express": "^4.16.2",
     "express-react-views": "^0.10.4",
     "react": "^16.2.0",
