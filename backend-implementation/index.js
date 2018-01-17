@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-	defaultCase = new Error('Internal Server Error');
+	const defaultCase = new Error('Internal Server Error');
 	defaultCase.status = 500;
 
 	res.status(err.status || defaultCase.status).render('index', {

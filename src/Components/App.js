@@ -8,8 +8,8 @@ class App extends Component {
         <header className="App-header">
           <img src="public/logo.svg" className="App-logo" alt="logo" />
         </header>
-        <p className="App-intro" onClick={() => console.log('click on App text')}>
-          To get started, edit <code>src/App.js</code> and save to reload.
+        <p className="App-intro">
+          Pictures Denoising
         </p>
         <Uploader />
       </div>

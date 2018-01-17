@@ -10,13 +10,19 @@ body {
     height: 80px; }
   .App .App-header {
     background-color: #222;
-    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
     padding: 20px;
     color: white; }
   .App .App-title {
     font-size: 1.5em; }
   .App .App-intro {
-    font-size: large; }
+    font-size: large;
+    text-transform: uppercase;
+    line-height: 2;
+    font-family: "Comic Sans MS", cursive, sans-serif; }
 
 @keyframes App-logo-spin {
   from {
@@ -48,3 +54,44 @@ body {
   flex-direction: column; }
   .Uploader > * {
     line-height: 2; }
+  .Uploader .file-input {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    max-width: 60vh;
+    height: 300px;
+    max-height: 40vh;
+    border: 1px dashed #e4e4c5;
+    border-radius: 5%;
+    margin-bottom: 10px; }
+    .Uploader .file-input .upload-icon {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      font-size: 100px;
+      height: 75%;
+      color: green;
+      opacity: 0.8; }
+      .Uploader .file-input .upload-icon > * {
+        font-size: inherit;
+        color: inherit;
+        opacity: inherit; }
+    .Uploader .file-input .upload-message {
+      display: flex;
+      height: 90%;
+      align-items: flex-end;
+      color: green;
+      opacity: 0.8;
+      font-size: 16px; }
+    .Uploader .file-input input {
+      position: absolute;
+      top: 0;
+      z-index: 10;
+      width: 100%;
+      color: transparent;
+      height: 100%;
+      outline: none;
+      opacity: 0;
+      border-radius: 5%; }

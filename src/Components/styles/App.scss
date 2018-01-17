@@ -8,7 +8,10 @@
 
   .App-header {
     background-color: #222;
-    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
     padding: 20px;
     color: white;
   }
@@ -19,6 +22,9 @@
 
   .App-intro {
     font-size: large;
+    text-transform: uppercase;
+    line-height: 2;
+    font-family: "Comic Sans MS", cursive, sans-serif;
   }
 
   @keyframes App-logo-spin {
