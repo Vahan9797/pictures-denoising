@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#IMPORTANT: use `bash build.sh` instead of `sh build.sh` to execute it with bash interpretator, not dash. Dash doesn't have "declare" and variable support.
+#IMPORTANT: Make sure you execute it with bash interpretator, not dash. Dash is shit.
 
-declare -r importedFiles=$(cat $(pwd)/src/index.scss | grep -e @import)
-declare -r scssFiles=$(cd $(pwd)/src/Components/styles && ls -l | grep -o [A-Z/a-z/0-9/_]*.scss)
-declare -i addedFiles=0
+importedFiles=$(cat $(pwd)/src/index.scss | grep -e @import)
+scssFiles=$(cd $(pwd)/src/Components/styles && ls -l | grep -o [A-Z/a-z/0-9/_]*.scss)
+addedFiles=0
 
 # --scss argument imports *.scss files from src/Components/styles/ into src/index.scss before compiling has started
 if [ "$1" = "--scss" ]; then
@@ -39,5 +39,10 @@ if [ "$1" = "--scss" ]; then
 	echo "SCSS operations finished. Preparing to compile..."
 	echo ""
 fi
-echo "Compiling scss files and client-side bundle..." && npm run build
-echo "Launching server on port 8080..." && npm start
+
+echo "Compiling scss files..." && npm run build-css &
+echo "Launching server on port 8080..." && npm start &
+echo "Compiling client-side bundle..." && npm run build-js
+
+# After interrupting the execution clear background processes
+ps -u $USER | pgrep node | xargs kill

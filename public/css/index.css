@@ -39,7 +39,7 @@ body {
   .ErrorPage > * {
     line-height: 2; }
   .ErrorPage .error-status {
-    font-size: 40px;
+    font-size: 50px;
     color: red; }
   .ErrorPage .error-message {
     max-width: 400px;

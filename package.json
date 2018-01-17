@@ -14,9 +14,9 @@
     "redux": "^3.7.2"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/index.scss -o public/css/",
-    "start": "nodemon --watch src --watch backend-implementation ./backend-implementation/index.js --exec babel-node --presets env,react",
-    "build": "npm run build-css && ./node_modules/webpack/bin/webpack.js",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/index.scss -o public/css/ --watch ./src/Components/styles",
+    "start": "nodemon ./backend-implementation/index.js --exec babel-node --watch backend-implementation",
+    "build-js": "nodemon ./node_modules/webpack/bin/webpack.js --exec babel-node --watch src",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
