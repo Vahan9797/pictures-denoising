@@ -39,13 +39,14 @@ body {
   .ErrorPage > * {
     line-height: 2; }
   .ErrorPage .error-status {
-    font-size: 50px;
+    font-size: 40px;
     color: red; }
   .ErrorPage .error-message {
     max-width: 400px;
     font-smoothing: antialiased;
     font-size: 44px;
-    color: #0f0f0f; }
+    color: #0f0f0f;
+    margin-bottom: 20px; }
 
 .Uploader {
   display: flex;

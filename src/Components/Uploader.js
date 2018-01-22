@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Input, FormControl, Button, Glyphicon } from 'react-bootstrap';
+import { Input, FormControl, Glyphicon } from 'react-bootstrap';
+//import Upload from 'material-ui-upload/Upload';
+import Button from 'material-ui/Button';
 
 class Uploader extends Component {
 	constructor(props) {
@@ -52,7 +54,7 @@ class Uploader extends Component {
 					<div className="upload-message">{this.state.dropZoneMsg}</div>
 					<FormControl type="file" onChange={e => this.checkFileInput(e)} disabled={this.state.disableFileUpload}/>
 				</div>
-				<Button bsStyle="success" onClick={() => this.submitFile()} disabled={!this.state.validFiles}>Submit File</Button>
+				<Button raised color="secondary" onClick={() => this.submitFile()} disabled={!this.state.validFiles}>Submit File</Button>
 			</div>
 		)
 	}

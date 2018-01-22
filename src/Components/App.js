@@ -13,7 +13,7 @@ class App extends Component {
         </p>
         <Uploader />
       </div>
-    );
+    )
   }
 }
 

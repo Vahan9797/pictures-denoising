@@ -6,15 +6,18 @@
     "bootstrap": "^3.3.7",
     "express": "^4.16.2",
     "express-react-views": "^0.10.4",
+    "material-ui": "^1.0.0-beta.30",
+    "material-ui-upload": "^1.2.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.17",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "typeface-roboto": "0.0.50"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/index.scss -o public/css/ --watch ./src/Components/styles",
+    "build-css": "node-sass-chokidar --include-path ./node_modules src/index.scss -o public/css/ --watch ./src/Components/styles",
     "start": "nodemon ./backend-implementation/index.js --exec babel-node --watch backend-implementation",
     "build-js": "nodemon ./node_modules/webpack/bin/webpack.js --exec babel-node --watch src",
     "test": "react-scripts test --env=jsdom",
@@ -27,6 +30,7 @@
     "babel-preset-react": "^6.24.1",
     "node-sass-chokidar": "0.0.3",
     "nodemon": "^1.14.9",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-css-loaders": "^1.0.0"
   }
 }

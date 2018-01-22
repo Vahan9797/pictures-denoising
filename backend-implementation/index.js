@@ -23,6 +23,7 @@ app.get('/download-img', (req, res) => {
 
 app.use('/public', express.static('public'));
 app.use('/scripts', express.static('node_modules/bootstrap/dist'));
+app.use('/roboto-font', express.static('node_modules/typeface-roboto'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

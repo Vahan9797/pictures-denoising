@@ -14,6 +14,7 @@ class DefaultLayout extends Component {
 				  <title>Pictures Denoising</title>
 					<link rel="stylesheet" type="text/css" href="public/css/index.css"/>
 					<link rel="stylesheet" type="text/css" href="scripts/css/bootstrap.min.css"/>
+					<link rel="stylesheet" href="roboto-font/index.css"/>
 				</head>
 				<body>
 					{!hasErrorOccured && <div id="react-root" dangerouslySetInnerHTML={{
