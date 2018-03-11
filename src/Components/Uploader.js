@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input, FormControl, Glyphicon } from 'react-bootstrap';
-//import Upload from 'material-ui-upload/Upload';
+import Image from './Image';
+import ImageList from './ImageList';
 import Button from 'material-ui/Button';
 
 class Uploader extends Component {
@@ -17,15 +18,16 @@ class Uploader extends Component {
 	}
 
 	checkFileInput(event) {
+		const { multipleFileUpload } = this.state;
 		const files = [...event.target.files];
-		const validFiles = files.every(file => (/([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg|.bmp)$/g).test(file.name)) && files;
+		const validFiles = files.every(file => (/([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg)$/g).test(file.name)) && files;
 		
 		if(!validFiles) {
-			this.setState({ dropZoneMsg: 'Your file is not an image.' });
+			this.setState({ dropZoneMsg: 'Your file must be one of these extensions: [png, jpg, jpeg]' });
 			return;
 		}
 
-		if(!this.state.multipleFileUpload) {
+		if(!multipleFileUpload) {
 			this.setState({
 				validFiles: validFiles[0],
 				disableFileUpload: true
@@ -47,14 +49,20 @@ class Uploader extends Component {
 	}
 
 	render() {
+		const { validFiles, disableFileUpload, dropZoneMsg, multipleFileUpload } = this.state;
 		return (
 			<div className="Uploader">
 				<div className="file-input">
 					<div className="upload-icon"><Glyphicon glyph="upload"/></div>
-					<div className="upload-message">{this.state.dropZoneMsg}</div>
-					<FormControl type="file" onChange={e => this.checkFileInput(e)} disabled={this.state.disableFileUpload}/>
+					<div className="upload-message">{dropZoneMsg}</div>
+					<FormControl
+						type="file"
+                        accept="image/x-png,image/jpeg,image/jpg"
+						onChange={e => this.checkFileInput(e)} disabled={disableFileUpload}/>
+					{validFiles.map(({ src, name }) => <Image url={src} name={name}/>)}
+					{multipleFileUpload && <ImageList files={validFiles}/>}
 				</div>
-				<Button raised color="secondary" onClick={() => this.submitFile()} disabled={!this.state.validFiles}>Submit File</Button>
+				<Button raised color="secondary" onClick={() => this.submitFile()} disabled={!validFiles}>Submit File</Button>
 			</div>
 		)
 	}

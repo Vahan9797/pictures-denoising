@@ -19,9 +19,9 @@ class DefaultLayout extends Component {
 				<body>
 					{!hasErrorOccured && <div id="react-root" dangerouslySetInnerHTML={{
 						__html: ReactDOMServer.renderToString(<App />)
-					}}></div>}
+					}}/>}
 					{hasErrorOccured && <ErrorPage error={this.props.error} errorMsg={this.props.errorMsg}/>}
-					<script src="public/bundle.js"></script>
+					<script src="public/bundle.js"/>
 				</body>
 			</html>
 		)
