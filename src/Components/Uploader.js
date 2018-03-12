@@ -59,7 +59,7 @@ class Uploader extends Component {
 						type="file"
                         accept="image/x-png,image/jpeg,image/jpg"
 						onChange={e => this.checkFileInput(e)} disabled={disableFileUpload}/>
-					{validFiles.map(({ src, name }) => <Image url={src} name={name}/>)}
+					{validFiles && validFiles.map(({ src, name }) => <Image url={src} name={name}/>)}
 					{multipleFileUpload && <ImageList files={validFiles}/>}
 				</div>
 				<Button raised color="secondary" onClick={() => this.submitFile()} disabled={!validFiles}>Submit File</Button>

@@ -40,9 +40,9 @@ if [ "$1" = "--scss" ]; then
 	echo ""
 fi
 
-echo "Compiling scss files..." && npm run build-css &
-echo "Launching server on port 8080..." && npm start &
-echo "Compiling client-side bundle..." && npm run build-js
+echo "Compiling scss files..." && yarn build-css &
+echo "Launching server on port 8080..." && yarn start &
+echo "Compiling client-side bundle..." && yarn build-js
 
 # After interrupting the execution clear background processes
 ps -u $USER | pgrep node | xargs kill

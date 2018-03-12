@@ -3,12 +3,8 @@ import fs from 'fs-extra';
 import { RESPONSE, MAX_FILE_SIZE, MESSAGES, IMG_FILES_DIR, FILE_UPLOAD_SUCCESS } from "./constants";
 const { SUCCESS, FORBIDDEN, NOT_FOUND, ERROR } = RESPONSE;
 
-export default const restController = ({ get, post, use }) => {
-    get('/', ({}, { render }) => {
-        render('index');
-    });
-
-    post('/upload', (req, { status }, next) => {
+export default function restController(router) {
+    router.post('/api/upload', (req, { status }, next) => {
         const form = formidable.IncomingForm();
         form.uploadDir = IMG_FILES_DIR;
         form.keepExtensions = true;
@@ -35,33 +31,33 @@ export default const restController = ({ get, post, use }) => {
         })
     });
 
-    post('/multi-upload', ({ files }, { status }, next) => {
+    router.post('/api/multi-upload', (req, { status }, next) => {
 
     });
 
-    post('/denoising', (req, res) => {
+    router.post('/api/denoising', (req, res) => {
 
     });
 
-    post('/multi-denoising', (req, res) => {
+    router.post('/api/multi-denoising', (req, res) => {
 
     });
 
-    post('/download', ({}, { status }, next) => {
+    router.post('/api/download', ({}, { status }, next) => {
 
     });
 
-    post('/multi-download', ({}, { status }, next) => {
+    router.post('/api/multi-download', ({}, { status }, next) => {
 
     });
 
-    use((req, res, next) => {
+    router.use((req, res, next) => {
         let err = new Error(MESSAGES[NOT_FOUND]);
         err.status = NOT_FOUND;
         next(err);
     });
 
-    use((err, {}, { status }) => {
+    router.use((err, {}, { status }) => {
         const defaultCase = new Error(MESSAGES[ERROR]);
         defaultCase.status = ERROR;
 

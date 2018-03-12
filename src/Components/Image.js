@@ -22,8 +22,8 @@ class Image extends Component {
                 {showBrokenImg && <div className="broken-img-container">
                     <i className="broken-img-icon"></i>
                     {!listItem && <span className="broken-img-txt">
-						Please make sure your image is not corrupted and try again.
-					</span>}
+											Please make sure your image is not corrupted and try again.
+										</span>}
                 </div>}
             </div>
         )

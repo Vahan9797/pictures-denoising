@@ -13,11 +13,16 @@ app.set('view engine', 'js');
 app.engine('js', createEngine({ beautify: true }));
 // <--
 
+router.get('/', (req, res) => {
+  res.render('index');
+});
+
 restController(router);
 
 app.use('/public', express.static('public'));
 app.use('/scripts', express.static('node_modules/bootstrap/dist'));
 app.use('/roboto-font', express.static('node_modules/typeface-roboto'));
+app.use('/', router);
 app.use(bodyParser({ defer: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
