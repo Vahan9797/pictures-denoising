@@ -19,5 +19,6 @@ export const MAX_FILE_SIZE = {
 
 export const IMG_FILES_DIR = 'public/images';
 export const FILE_UPLOAD_SUCCESS = 'File(s) have been successfully uploaded';
+export const FILE_DOWNLOAD_SUCCESS = 'File(s) have been successfully downloaded';
 export const DEFAULT_DEV_PATH = 'http://localhost:8080';
 export const DEFAULT_PROD_PATH = 'https://pictures-denoising.com';

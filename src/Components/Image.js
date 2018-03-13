@@ -16,7 +16,7 @@ class Image extends Component {
         const { url, name, showBrokenImg, listItem } = this.state;
 
         return (
-            <div className={`Image${listItem && ' item'}`}>
+            <div className={`Image${listItem ? ' item' : ''}`}>
                 {!listItem && name && <div className="imgName">{name}</div>}
                 {url && <img src={url} />}
                 {showBrokenImg && <div className="broken-img-container">

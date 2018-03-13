@@ -27,6 +27,11 @@
     font-family: "Comic Sans MS", cursive, sans-serif;
   }
 
+  .App-body {
+    display: flex;
+    justify-content: center;
+  }
+
   @keyframes App-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }

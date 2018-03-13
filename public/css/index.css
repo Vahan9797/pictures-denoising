@@ -23,6 +23,9 @@ body {
     text-transform: uppercase;
     line-height: 2;
     font-family: "Comic Sans MS", cursive, sans-serif; }
+  .App .App-body {
+    display: flex;
+    justify-content: center; }
 
 @keyframes App-logo-spin {
   from {
@@ -48,9 +51,53 @@ body {
     color: #0f0f0f;
     margin-bottom: 20px; }
 
+.ImageList {
+  border: 1px dashed #e4e4c5;
+  border-radius: 5%;
+  min-width: 80px;
+  height: 80px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between; }
+
+.Image {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3%; }
+  .Image.item {
+    margin: 0 auto; }
+  .Image .imgName {
+    color: #383838;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transform: translateY(-15%);
+    z-index: 10; }
+  .Image img {
+    flex: 1; }
+  .Image .broken-img-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1; }
+    .Image .broken-img-container .broken-img-icon::before, .Image .broken-img-container .broken-img-icon::after {
+      clear: both; }
+    .Image .broken-img-container .broken-img-txt {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: #d4d4c9; }
+
 .Uploader {
   display: flex;
   align-items: center;
+  max-width: 500px;
+  min-width: 200px;
+  max-height: 300px;
+  min-height: 120px;
   justify-content: center;
   flex-direction: column; }
   .Uploader > * {
@@ -61,6 +108,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 500px;
+    min-width: 80px;
     max-width: 60vh;
     height: 300px;
     max-height: 40vh;

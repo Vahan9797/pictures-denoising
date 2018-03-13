@@ -1,35 +1,40 @@
-import formidable from 'formidable';
+import { RESPONSE, MAX_FILE_SIZE, MESSAGES } from "./constants";
 import fs from 'fs-extra';
 
-export default class Storage {
-	static upload(file) {
-    const form = formidable.IncomingForm();
-    form.uploadDir = IMG_FILES_DIR;
-    form.keepExtensions = true;
+const { FORBIDDEN, ERROR } = RESPONSE;
 
-    form.parse(req, (err, fields, { fileUploaded }) => {
+export default class Storage {
+	static upload(form) {
+    const req = typeof form.req === 'object' && form.req;
+    delete form.req;
+
+    return new Promise((resolve, reject) => {
+    	form.parse(req, (err, fields, { fileUploaded }) => {
         const { size, msg } = MAX_FILE_SIZE;
+
         if(err) {
-            next(err);
+      		err.status = err.status || ERROR;
+          reject(err);
         }
         if(fileUploaded.size > size) {
-            const err = new Error(msg);
-            err.status = FORBIDDEN;
-            next(err);
+          const err = new Error(msg);
+          err.status = FORBIDDEN;
+          reject(err);
         }
 
         fs.rename(fileUploaded.path, `${IMG_FILES_DIR}/${req.body.file.name}`, err => {
-            if(err) {
-                next(err);
-            }
-            console.log('File uploaded and renamed');
+          if(err) {
+          		err.status = err.status || ERROR;
+              reject(err);
+          }
+          console.log('File uploaded and renamed');
+          resolve();
         });
-
-        status(SUCCESS).send(FILE_UPLOAD_SUCCESS);
+    	})
     })
 	}
 
-	static multiUpload(files) {
+	static multiUpload(form) {
 		// TODO
 	}
 

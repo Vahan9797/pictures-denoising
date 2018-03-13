@@ -17,24 +17,34 @@ class Uploader extends Component {
 		}
 	}
 
-	checkFileInput(event) {
+	checkFileInput({ target }) {
 		const { multipleFileUpload } = this.state;
-		const files = [...event.target.files];
+		const files = [...target.files];
 		const validFiles = files.every(file => (/([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg)$/g).test(file.name)) && files;
-		
+
 		if(!validFiles) {
 			this.setState({ dropZoneMsg: 'Your file must be one of these extensions: [png, jpg, jpeg]' });
 			return;
 		}
 
-		if(!multipleFileUpload) {
-			this.setState({
-				validFiles: validFiles[0],
-				disableFileUpload: true
-			});
-		} else {
-			this.setState({validFiles});
-		}
+		const reader = new FileReader();
+		const newFile = validFiles[0];
+
+		reader.onload = ({ target }) => {
+			newFile.src = target.result;
+			debugger;
+			if(!multipleFileUpload) {
+				this.setState({
+					validFiles,
+					disableFileUpload: true
+				});
+			} else {
+				const validFiles = this.state.validFiles.concat(newFile).slice(); 
+				this.setState({ validFiles });
+			}
+		};
+
+		newFile && reader.readAsDataURL(newFile);
 	}
 
 	submitFile() {
@@ -59,7 +69,7 @@ class Uploader extends Component {
 						type="file"
                         accept="image/x-png,image/jpeg,image/jpg"
 						onChange={e => this.checkFileInput(e)} disabled={disableFileUpload}/>
-					{validFiles && validFiles.map(({ src, name }) => <Image url={src} name={name}/>)}
+					{validFiles && validFiles.map(({ src, name }) => <Image key={`${src}${name}`} url={src} name={name}/>)}
 					{multipleFileUpload && <ImageList files={validFiles}/>}
 				</div>
 				<Button raised color="secondary" onClick={() => this.submitFile()} disabled={!validFiles}>Submit File</Button>

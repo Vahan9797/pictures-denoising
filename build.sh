@@ -41,8 +41,11 @@ if [ "$1" = "--scss" ]; then
 fi
 
 echo "Compiling scss files..." && yarn build-css &
+CSS_PID=$!
 echo "Launching server on port 8080..." && yarn start &
+SERVER_PID=$!
 echo "Compiling client-side bundle..." && yarn build-js
+BUNDLE_PID=$!
 
 # After interrupting the execution clear background processes
-ps -u $USER | pgrep node | xargs kill
+kill CSS_PID BUNDLE_PID SERVER_PID
