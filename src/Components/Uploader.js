@@ -10,15 +10,24 @@ class Uploader extends Component {
 
 		this.state = {
 			dropZoneMsg: 'Drag and Drop or Click on area to upload file(s)',
-			multipleFileUpload: false,
+			onUploaderClass: '',
 			disableFileUpload: false,
 			validFiles: false,
 			isUploading: false
 		}
 	}
 
+	changeUploaderStyle(className) {
+		switch(className) {
+			case 'drag-over':
+			case 'drag-enter':
+				return this.setState({ onUploaderClass: className });
+			default:
+				return this.setState({ onUploaderClass: '' });
+		} 
+	}
+
 	checkFileInput({ target }) {
-		const { multipleFileUpload } = this.state;
 		const files = [...target.files];
 		const validFiles = files.every(file => (/([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg)$/g).test(file.name)) && files;
 
@@ -32,16 +41,7 @@ class Uploader extends Component {
 
 		reader.onload = ({ target }) => {
 			newFile.src = target.result;
-			debugger;
-			if(!multipleFileUpload) {
-				this.setState({
-					validFiles,
-					disableFileUpload: true
-				});
-			} else {
-				const validFiles = this.state.validFiles.concat(newFile).slice(); 
 				this.setState({ validFiles });
-			}
 		};
 
 		newFile && reader.readAsDataURL(newFile);
@@ -59,20 +59,30 @@ class Uploader extends Component {
 	}
 
 	render() {
-		const { validFiles, disableFileUpload, dropZoneMsg, multipleFileUpload } = this.state;
+		const { validFiles, disableFileUpload, dropZoneMsg, multipleFileUpload, onUploaderClass } = this.state;
 		return (
 			<div className="Uploader">
-				<div className="file-input">
+				<div className={`file-input${onUploaderClass && ` ${onUploaderClass}`}`}>
 					<div className="upload-icon"><Glyphicon glyph="upload"/></div>
-					<div className="upload-message">{dropZoneMsg}</div>
+					<div className="upload-message"><span>{dropZoneMsg}</span></div>
 					<FormControl
 						type="file"
-                        accept="image/x-png,image/jpeg,image/jpg"
-						onChange={e => this.checkFileInput(e)} disabled={disableFileUpload}/>
-					{validFiles && validFiles.map(({ src, name }) => <Image key={`${src}${name}`} url={src} name={name}/>)}
-					{multipleFileUpload && <ImageList files={validFiles}/>}
+            accept="image/x-png,image/jpeg,image/jpg"
+            onDragEnter={() => this.changeUploaderStyle('drag-enter')}
+            onDragOver={() => this.changeUploaderStyle('drag-over')}
+            onDragLeave={() => this.changeUploaderStyle('drag-leave')}
+						onChange={e => this.checkFileInput(e)}
+						disabled={disableFileUpload}/>
+					{validFiles && validFiles.map(({ src, name }) => <Image key={src} url={src} name={name}/>)}
+					{validFiles.length > 1 && <ImageList files={validFiles}/>}
 				</div>
-				<Button raised color="secondary" onClick={() => this.submitFile()} disabled={!validFiles}>Submit File</Button>
+				<Button
+					raised
+					style={{ fontSize: '1.5vh' }}
+					color="secondary"
+					onClick={() => this.submitFile()}
+					disabled={!validFiles}
+					>{`Submit File${validFiles.length > 1 ? `s [${validFiles.length}]` : ''}`}</Button>
 			</div>
 		)
 	}

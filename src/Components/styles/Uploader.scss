@@ -1,9 +1,11 @@
 .Uploader {
 	display: flex;
 	align-items: center;
-	max-width: 500px;
+	width: 80vh;
+	max-width: 100vh;
+	max-height: 80vh;
 	min-width: 200px;
-	max-height: 300px;
+	height: 60vh;
 	min-height: 120px;
 	justify-content: center;
 	flex-direction: column;
@@ -17,26 +19,48 @@
 		flex-direction: column;
 		align-items: center;
 
-		width: 500px;
-		min-width: 80px;
-		max-width: 60vh;
-		height: 300px;
-		max-height: 40vh;
+		width: inherit;
+		height: inherit;
+		min-height: inherit;
+		min-width: inherit;
+		max-width: inherit;
+		max-height: inherit;
 
 		border: 1px dashed #e4e4c5;
 		border-radius: 5%;
-		margin-bottom: 10px;
+		margin: 2vh 0;
+
+		&.drag-enter,&.drag-over {
+			.upload-icon > .glyphicon,.upload-message {
+			    color: #0f0;
+			    opacity: .6;
+			}
+
+			.upload-icon > .glyphicon {
+			    box-shadow:
+			    inset 0 0 50px #fff,
+			    inset 20px 0 80px #0ff,
+			    inset -20px 0 80px #0f8,
+			    inset 20px 0 300px #0ff,
+			    inset -20px 0 300px #0f8,
+			    0 0 50px #fff,
+			    -10px 0 80px #0ff,
+			    10px 0 80px #0f8;
+			}
+		}
 	
 		.upload-icon {
 			position: absolute;
+			box-shadow: none;
 			display: flex;
 			align-items: center; 
-			font-size: 100px;
+			font-size: 20vh;
 			height: 75%;
 			color: green;
 			opacity: 0.8;
 
-			& > * {
+			& > .glyphicon {
+				border-radius: 50%;
 				font-size: inherit;
 				color: inherit;
 				opacity: inherit;
@@ -45,11 +69,16 @@
 
 		.upload-message {
 			display: flex;
+			box-shadow: none;
 			height: 90%;
 			align-items: flex-end;
 			color: green;
 			opacity: 0.8;
-			font-size: 16px;
+			font-size: 3vh;
+		}
+
+		.upload-icon > .glyphicon,.upload-message {
+			transition: box-shadow .2s ease-out, color .2s ease-out, opacity .2s ease-out;
 		}
 
 		input {

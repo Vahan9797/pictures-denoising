@@ -46,6 +46,6 @@ echo "Launching server on port 8080..." && yarn start &
 SERVER_PID=$!
 echo "Compiling client-side bundle..." && yarn build-js
 BUNDLE_PID=$!
-
+wait
 # After interrupting the execution clear background processes
-kill CSS_PID BUNDLE_PID SERVER_PID
+kill $CSS_PID $BUNDLE_PID $SERVER_PID
