@@ -16,7 +16,7 @@ class ImageList extends Component {
 
         return (
             <div className="ImageList">
-                {files.map(({ src, name }) => <Image url={src} name={name} listItem={true}/>)}
+                {files.map(({ src, name }) => <Image key={src} url={src} name={name} listItem={true}/>)}
             </div>
         )
     }

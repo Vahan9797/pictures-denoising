@@ -11,7 +11,9 @@ class App extends Component {
         <p className="App-intro">
           Pictures Denoising
         </p>
-        <div className="App-body"><Uploader /></div>
+        <div className="App-body">
+          <Uploader />
+        </div>
       </div>
     )
   }

@@ -3,16 +3,18 @@ import { Input, FormControl, Glyphicon } from 'react-bootstrap';
 import Image from './Image';
 import ImageList from './ImageList';
 import Button from 'material-ui/Button';
+import { DROPZONE_VALID, DROPZONE_INVALID } from '../helpers/constants';
 
 class Uploader extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			dropZoneMsg: 'Drag and Drop or Click on area to upload file(s)',
+			dropZoneMsg: DROPZONE_VALID,
 			onUploaderClass: '',
 			disableFileUpload: false,
-			validFiles: false,
+			glyphIcon: 'upload',
+			validFiles: [],
 			isUploading: false
 		}
 	}
@@ -21,7 +23,8 @@ class Uploader extends Component {
 		switch(className) {
 			case 'drag-over':
 			case 'drag-enter':
-				return this.setState({ onUploaderClass: className });
+				const onUploaderClass = this.state.onUploaderClass !== className && className;
+				return onUploaderClass && this.setState({ onUploaderClass });
 			default:
 				return this.setState({ onUploaderClass: '' });
 		} 
@@ -29,22 +32,28 @@ class Uploader extends Component {
 
 	checkFileInput({ target }) {
 		const files = [...target.files];
-		const validFiles = files.every(file => (/([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg)$/g).test(file.name)) && files;
+		const targetFile = files.every(file => (/([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg)$/g).test(file.name)) && files[0];
+		const { validFiles } = this.state;
 
-		if(!validFiles) {
-			this.setState({ dropZoneMsg: 'Your file must be one of these extensions: [png, jpg, jpeg]' });
+		if(!targetFile) {
+			delete target.files;
+			this.setState({
+				dropZoneMsg: DROPZONE_INVALID,
+				glyphIcon: 'remove',
+				onUploaderClass: 'error'
+			});
 			return;
 		}
 
 		const reader = new FileReader();
-		const newFile = validFiles[0];
 
 		reader.onload = ({ target }) => {
-			newFile.src = target.result;
-				this.setState({ validFiles });
+			targetFile.src = target.result;
+			validFiles.push(targetFile);
+				this.setState({ validFiles: validFiles.slice() });
 		};
 
-		newFile && reader.readAsDataURL(newFile);
+		targetFile && reader.readAsDataURL(targetFile);
 	}
 
 	submitFile() {
@@ -59,12 +68,12 @@ class Uploader extends Component {
 	}
 
 	render() {
-		const { validFiles, disableFileUpload, dropZoneMsg, multipleFileUpload, onUploaderClass } = this.state;
+		const { validFiles, disableFileUpload, dropZoneMsg, multipleFileUpload, onUploaderClass, glyphIcon } = this.state;
 		return (
 			<div className="Uploader">
 				<div className={`file-input${onUploaderClass && ` ${onUploaderClass}`}`}>
-					<div className="upload-icon"><Glyphicon glyph="upload"/></div>
-					<div className="upload-message"><span>{dropZoneMsg}</span></div>
+					{!validFiles.length && <div className="upload-icon"><Glyphicon glyph={glyphIcon}/></div>}
+					{!validFiles.length && <div className="upload-message"><span>{dropZoneMsg}</span></div>}
 					<FormControl
 						type="file"
             accept="image/x-png,image/jpeg,image/jpg"
@@ -73,7 +82,7 @@ class Uploader extends Component {
             onDragLeave={() => this.changeUploaderStyle('drag-leave')}
 						onChange={e => this.checkFileInput(e)}
 						disabled={disableFileUpload}/>
-					{validFiles && validFiles.map(({ src, name }) => <Image key={src} url={src} name={name}/>)}
+					{!!validFiles.length && validFiles.map(({ src, name }) => <Image key={src} url={src} name={name}/>)}
 					{validFiles.length > 1 && <ImageList files={validFiles}/>}
 				</div>
 				<Button
@@ -81,7 +90,7 @@ class Uploader extends Component {
 					style={{ fontSize: '1.5vh' }}
 					color="secondary"
 					onClick={() => this.submitFile()}
-					disabled={!validFiles}
+					disabled={!validFiles.length}
 					>{`Submit File${validFiles.length > 1 ? `s [${validFiles.length}]` : ''}`}</Button>
 			</div>
 		)
