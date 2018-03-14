@@ -4,7 +4,13 @@ import path from 'path';
 import { createEngine } from 'express-react-views';
 import restController from './helpers/rest-controller';
 import { RESPONSE, MESSAGES } from './helpers/constants';
+import { load } from 'dotenv';
 
+if(process.env.NODE_ENV !== 'production') {
+    load();
+}
+
+const { VIEW_ENGINE, NODE_ENV, IS_NODE, DEV_PORT, DEV_HOST, PROTOCOL } = process.env;
 const { ERROR, NOT_FOUND } = RESPONSE;
 
 const app = express();
@@ -12,12 +18,13 @@ const api = express.Router();
 
 // Setting up react server-rendering -->
 app.set('views', path.join(__dirname, '/../src'));
-app.set('view engine', 'js');
-app.engine('js', createEngine({ beautify: true }));
+app.set('view engine', VIEW_ENGINE);
+app.engine(VIEW_ENGINE, createEngine({ beautify: true }));
 // <--
 
 app.get('/', (req, res) => {
-  res.render('index');
+  const isDevMode = NODE_ENV !== 'production';
+  res.render('index', { browserSyncUrl: isDevMode && `${PROTOCOL}://${DEV_HOST}:${+DEV_PORT + 1}` });
 });
 
 app.use('/public', express.static('public'));
@@ -44,4 +51,4 @@ app.use((err, req, res, next) => {
     });
 });
 
-const server = app.listen(8080, () => console.log('Listening to port %d', server.address().port));
+const server = app.listen(DEV_PORT || 8080, () => console.log('Listening to port %d', server.address().port));

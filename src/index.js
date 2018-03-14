@@ -5,7 +5,8 @@ import ErrorPage from './Components/ErrorPage';
 
 class DefaultLayout extends Component {
 	render() {
-		const hasErrorOccured = this.props.error || this.props.errorMsg;
+		const { error, errorMsg, browserSyncUrl } = this.props;
+		const hasErrorOccured = error || errorMsg;
 		return(
 			<html lang="en">
 				<head>
@@ -22,8 +23,9 @@ class DefaultLayout extends Component {
 					{!hasErrorOccured && <div id="react-root" dangerouslySetInnerHTML={{
 						__html: ReactDOMServer.renderToString(<App />)
 					}}/>}
-					{hasErrorOccured && <ErrorPage error={this.props.error} errorMsg={this.props.errorMsg}/>}
+					{hasErrorOccured && <ErrorPage error={error} errorMsg={errorMsg}/>}
 					<script src="/public/bundle.js"/>
+					{browserSyncUrl && <script async src={`${browserSyncUrl}/browser-sync/browser-sync-client.js?v=2.23.6`}/>}
 				</body>
 			</html>
 		)

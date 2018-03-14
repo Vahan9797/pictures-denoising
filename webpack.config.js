@@ -23,10 +23,6 @@ const config = {
 				options: {
 					cacheDirectory: true
 				}
-			},
-			{
-				test: /\.css$/,
-				use: ['style-loader','css-loader']
 			}
 		]
 	}
