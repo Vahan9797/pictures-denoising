@@ -3,17 +3,17 @@ import { Input, FormControl, Glyphicon } from 'react-bootstrap';
 import Image from './Image';
 import ImageList from './ImageList';
 import Button from 'material-ui/Button';
-import { DROPZONE_VALID, DROPZONE_INVALID } from '../helpers/constants';
+import { DROPZONE, ICON, UP_CLASS } from '../helpers/constants';
 
 class Uploader extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			dropZoneMsg: DROPZONE_VALID,
+			dropZoneMsg: DROPZONE.DRAG,
 			onUploaderClass: '',
 			disableFileUpload: false,
-			glyphIcon: 'upload',
+			glyphIcon: ICON.UPLOAD,
 			validFiles: [],
 			isUploading: false
 		}
@@ -21,12 +21,12 @@ class Uploader extends Component {
 
 	changeUploaderStyle(className) {
 		switch(className) {
-			case 'drag-over':
-			case 'drag-enter':
+			case UP_CLASS.DRAG_OVER:
+			case UP_CLASS.DRAG_ENTER:
 				const onUploaderClass = this.state.onUploaderClass !== className && className;
-				return onUploaderClass && this.setState({ onUploaderClass });
+				return onUploaderClass && this.setState({ onUploaderClass, glyphIcon: ICON.ARROW, dropZoneMsg: DROPZONE.DROP });
 			default:
-				return this.setState({ onUploaderClass: '' });
+				return this.setState({ onUploaderClass: '', glyphIcon: ICON.UPLOAD, dropZoneMsg: DROPZONE.DRAG });
 		} 
 	}
 
@@ -38,9 +38,9 @@ class Uploader extends Component {
 		if(!targetFile) {
 			delete target.files;
 			this.setState({
-				dropZoneMsg: DROPZONE_INVALID,
-				glyphIcon: 'remove',
-				onUploaderClass: 'error'
+				dropZoneMsg: DROPZONE.INVALID,
+				glyphIcon: ICON.X,
+				onUploaderClass: UP_CLASS.ERROR
 			});
 			return;
 		}
@@ -83,8 +83,8 @@ class Uploader extends Component {
 						onChange={e => this.checkFileInput(e)}
 						disabled={disableFileUpload}/>
 					{!!validFiles.length && validFiles.map(({ src, name }) => <Image key={src} url={src} name={name}/>)}
-					{validFiles.length > 1 && <ImageList files={validFiles}/>}
 				</div>
+				{validFiles.length > 1 && <ImageList files={validFiles}/>}
 				<Button
 					raised
 					style={{ fontSize: '1.5vh' }}
