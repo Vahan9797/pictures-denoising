@@ -1,12 +1,19 @@
 .ImageList {
 	position: relative;
   border: 1px dashed #e4e4c5;
-  border-radius: 5%;
-  min-width: 80px;
-  height: 80px;
-  padding: 5px;
+  width: inherit;
+  min-width: inherit;
+  max-width: inherit;
+  height: 150px;
+  padding: 0 5px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 20px;
+
+  .Image {
+    width: 100px;
+    height: 98px;
+  }
 }

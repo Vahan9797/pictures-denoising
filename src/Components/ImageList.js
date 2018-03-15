@@ -13,7 +13,7 @@ class ImageList extends Component {
 
     render() {
         const { files } = this.state;
-
+        console.log(files);
         return (
             <div className="ImageList">
                 {files.map(({ src, name }) => <Image key={src} url={src} name={name} listItem={true}/>)}

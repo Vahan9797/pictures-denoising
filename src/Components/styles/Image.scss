@@ -12,15 +12,7 @@
 
   &.item {
     margin: 0 auto;
-  }
-
-  .imgName {
-    color: #d4d4c9;
-    white-space: nowrap;
-    height: 0;
-    text-overflow: ellipsis;
-    transform: translateY(-100%);
-    z-index: 10;
+    position: static;
   }
 
   img {
