@@ -2,11 +2,7 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
-
-// this same dotenv.load happens in backend's index.js; good part is, it passes variables that already have been set
-if(process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
-}
+const env = require('./backend-implementation/config/environment');
 
 gulp.task('sass', function() {
 	gulp.src('src/index.scss')
@@ -18,8 +14,8 @@ gulp.task('sass', function() {
 gulp.task('browserSync', function() {
 	browserSync.init({
 		logPrefix: 'Picture Denoising',
-		host: process.env.DEV_HOST,
-		port: +process.env.DEV_PORT + 1,
+		host: env('HOST'),
+		port: +env('PORT') + 1,
 		open: false,
 		notify: false,
 		ghost: false,

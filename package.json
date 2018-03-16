@@ -19,7 +19,7 @@
     "typeface-roboto": "0.0.50"
   },
   "scripts": {
-    "build-css": "gulp run-css",
+    "gulp": "gulp run-css",
     "start": "nodemon ./backend-implementation/index.js --exec babel-node --watch backend-implementation",
     "build-js": "nodemon ./node_modules/webpack/bin/webpack.js --exec babel-node --watch src",
     "test": "react-scripts test --env=jsdom",

@@ -40,12 +40,12 @@ if [ "$1" = "--scss" ]; then
 	echo ""
 fi
 
-echo "Compiling scss files..." && yarn build-css &
-CSS_PID=$!
+echo "Compiling scss files..." && yarn gulp &
+GULP_PID=$!
 echo "Launching server on port 8080..." && yarn start &
 SERVER_PID=$!
 echo "Compiling client-side bundle..." && yarn build-js
 BUNDLE_PID=$!
 wait
 # After interrupting the execution clear background processes
-kill $CSS_PID $BUNDLE_PID $SERVER_PID
+kill $GULP_PID $BUNDLE_PID $SERVER_PID
