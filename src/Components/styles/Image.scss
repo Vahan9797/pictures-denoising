@@ -1,3 +1,6 @@
+@import './helpers/mixins';
+@import './helpers/variables';
+
 .Image {
   display: flex;
   position: absolute;
@@ -13,6 +16,7 @@
   &.item {
     margin: 0 auto;
     position: static;
+    @include box-shadow($imageItemGlowColorRGB...);
   }
 
   img {

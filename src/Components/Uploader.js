@@ -27,7 +27,7 @@ class Uploader extends Component {
 				return onUploaderClass && this.setState({ onUploaderClass, glyphIcon: ICON.ARROW, dropZoneMsg: DROPZONE.DROP });
 			default:
 				return this.setState({ onUploaderClass: '', glyphIcon: ICON.UPLOAD, dropZoneMsg: DROPZONE.DRAG });
-		} 
+		}
 	}
 
 	checkFileInput({ target }) {

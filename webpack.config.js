@@ -1,8 +1,8 @@
-const webpack = require('webpack');
-const path = require('path');
+import webpack from 'webpack';
+import path from 'path';
 
-const BUILD_DIR = path.resolve(__dirname, 'public');
-const APP_DIR = path.resolve(__dirname, 'public/js');
+const BUILD_DIR = path.join(__dirname, 'public');
+const APP_DIR = path.join(__dirname, 'public/js');
 
 const config = {
 	entry: path.join(APP_DIR, 'app-client.js'),
@@ -28,4 +28,4 @@ const config = {
 	}
 }
 
-module.exports = config;
+export default config;

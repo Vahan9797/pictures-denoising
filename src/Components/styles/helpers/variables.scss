@@ -1,0 +1,14 @@
+// this vars are for box-shadow mixin usage of uploader and image item -->
+$defaultFirstGlowColorRGB: 255, 255, 255;
+$imageItemMainGlowColorRGB: 0, 0, 255;
+$imageItemSecondaryGlowColorRGB: 0, 128, 255;
+$uploaderMainGlowColorRGB: 0, 255, 0;
+$uploaderSecondaryGlowColorRGB: 0, 255, 128;
+
+$uploaderGlowColorRGB: ($uploaderMainGlowColorRGB, $defaultFirstGlowColorRGB, $uploaderSecondaryGlowColorRGB);
+$imageItemGlowColorRGB: ($imageItemMainGlowColorRGB, $defaultFirstGlowColorRGB, $imageItemSecondaryGlowColorRGB);
+// <--
+
+$uploaderMainColor: #008000;
+$uploaderBorderColor: #e4e4c5;
+$mainErrorColor: #d9534f;
