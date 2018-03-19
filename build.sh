@@ -40,9 +40,8 @@ if [ "$1" = "--scss" ]; then
 	echo ""
 fi
 
-echo "Compiling scss files..." && yarn gulp &
-GULP_PID=$!
-echo "Launching server on port 8080..." && yarn start &
+
+(echo "Launching server on port 8080..."; yarn start) && (echo 'Compiling scss files...'; yarn gulp) &
 SERVER_PID=$!
 echo "Compiling client-side bundle..." && yarn build-js
 BUNDLE_PID=$!

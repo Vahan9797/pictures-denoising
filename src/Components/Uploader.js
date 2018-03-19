@@ -5,6 +5,8 @@ import ImageList from './ImageList';
 import Button from 'material-ui/Button';
 import { DROPZONE, ICON, UP_CLASS } from '../helpers/constants';
 
+import requestApi from '../helpers/request-api';
+
 class Uploader extends Component {
 	constructor(props) {
 		super(props);
@@ -56,15 +58,9 @@ class Uploader extends Component {
 		targetFile && reader.readAsDataURL(targetFile);
 	}
 
-	submitFile() {
-		const reqBody = {
-			files: this.state.validFiles,
-		}
-		console.log('Submit');
-/*		this.state.validFile && fetch('http://localhost:8080/upload-img', {
-			method: 'POST',
-			body: 
-		});*/
+	submitFiles() {
+		const { validFiles } = this.state;
+		requestApi('upload', { file: validFiles[0] }).then(res => console.log(res));
 	}
 
 	render() {
@@ -89,7 +85,7 @@ class Uploader extends Component {
 					raised
 					style={{ fontSize: '1.5vh' }}
 					color="secondary"
-					onClick={() => this.submitFile()}
+					onClick={() => this.submitFiles()}
 					disabled={!validFiles.length}
 					>{`Submit File${validFiles.length > 1 ? `s [${validFiles.length}]` : ''}`}</Button>
 			</div>

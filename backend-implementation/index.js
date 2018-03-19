@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { createEngine } from 'express-react-views';
@@ -9,7 +9,7 @@ import env from './config/environment';
 const { ERROR, NOT_FOUND } = RESPONSE;
 
 const app = express();
-const api = express.Router();
+const api = Router();
 
 // Setting up react server-rendering -->
 app.set('views', path.join(__dirname, '/../src'));
@@ -31,19 +31,19 @@ app.use(bodyParser.json());
 app.use('/api', restController(api));
 
 app.use((req, res, next) => {
-    let err = new Error(MESSAGES[NOT_FOUND]);
-    err.status = NOT_FOUND;
-    next(err);
+  let err = new Error(MESSAGES[NOT_FOUND]);
+  err.status = NOT_FOUND;
+  next(err);
 });
 
 app.use((err, req, res, next) => {
-    const defaultCase = new Error(MESSAGES[ERROR]);
-    defaultCase.status = ERROR;
+  const defaultCase = new Error(MESSAGES[ERROR]);
+  defaultCase.status = ERROR;
 
-    res.status(err.status || defaultCase.status).render('index', {
-        errorMsg: err.message || defaultCase.message,
-        error: err || defaultCase
-    });
+  res.status(err.status || defaultCase.status).render('index', {
+      errorMsg: err.message || defaultCase.message,
+      error: err || defaultCase
+  });
 });
 
 const server = app.listen(env('PORT') || 8080, () => console.log('Listening to port %d', server.address().port));

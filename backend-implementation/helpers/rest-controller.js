@@ -1,10 +1,10 @@
-const { RESPONSE, MESSAGES, IMG_FILES_DIR, FILE_UPLOAD_SUCCESS } = require("./constants");
-const Storage = require('./Storage');
-const formidable = require('formidable');
+import { RESPONSE, MESSAGES, IMG_FILES_DIR, FILE_UPLOAD_SUCCESS } from "./constants";
+import Storage from './Storage';
+import formidable from 'formidable';
 
 const { SUCCESS, NOT_FOUND, ERROR } = RESPONSE;
 
-module.exports = function restController(router) {
+export default function restController(router) {
     router.post('/upload', (req, res) => {
         Storage.upload(formBuilder(req))
           .then(() => res.status(SUCCESS).send({ msg: FILE_UPLOAD_SUCCESS }))
@@ -35,6 +35,22 @@ module.exports = function restController(router) {
         Storage.multiDownload(formBuilder(req))
           .then(() => res.status(SUCCESS).send({ msg: FILE_DOWNLOAD_SUCCESS }))
           .catch(({ status, msg }) => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
+    });
+
+    router.use((req, res, next) => {
+      let err = new Error(MESSAGES[NOT_FOUND]);
+      err.status = NOT_FOUND;
+      next(err);
+    });
+
+    router.use((err, req, res, next) => {
+      const defaultCase = new Error(MESSAGES[ERROR]);
+      defaultCase.status = ERROR;
+
+      res.status(err.status || defaultCase.status).render('index', {
+          errorMsg: err.message || defaultCase.message,
+          error: err || defaultCase
+      });
     });
 
     return router;

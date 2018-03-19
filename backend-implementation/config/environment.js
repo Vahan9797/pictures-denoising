@@ -1,9 +1,9 @@
-const load = require('dotenv').load;
-const fileExists = require('fs').existsSync;
-const path = require('path');
+import { load } from 'dotenv';
+import {existsSync as fileExists} from 'fs';
+import path from 'path';
 
 // for every build reload and every file .env will be loaded, but only once;
-module.exports = function env(/* arguments */) {
+export default function env(/* arguments */) {
 	const args = arguments;
 	if(!env.LOAD_ENV_ONCE) {
 		fileExists(path.join(__dirname, '../../override.env')) ? load(path.join(__dirname, '../../override.env')) : load();

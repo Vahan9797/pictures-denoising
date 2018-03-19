@@ -2,7 +2,7 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
-const env = require('./backend-implementation/config/environment');
+const env = require('./__backend-dist/config/environment').default;
 
 gulp.task('sass', function() {
 	gulp.src('src/index.scss')
