@@ -21,8 +21,8 @@
   "scripts": {
     "gulp": "gulp run-css",
     "build-js": "nodemon ./node_modules/webpack/bin/webpack.js --exec babel-node --watch src",
-    "build-express": "eval \"rimraf __backend-dist/ && babel backend-implementation/. --out-dir __backend-dist/ --copy-files && nodemon __backend-dist/index.js\"",
-    "start": "yarn build-express --watch backend-implementation &",
+    "build-express": "rimraf __backend-dist/ && babel backend-implementation/. --out-dir __backend-dist/ --copy-files --watch backend-implementation",
+    "start": "yarn build-express & nodemon __backend-dist/index.js &",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

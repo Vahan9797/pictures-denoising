@@ -1,3 +1,14 @@
+@mixin flexbox($justifyContent: center, $alignItems: center) {
+	display: flex;
+	@if $justifyContent != center and $alignItems == center {
+		justify-content: $justifyContent;
+		align-items: $justifyContent;
+	} @else {
+		justify-content: $justifyContent;
+		align-items: $alignItems;
+	}
+}
+
 @mixin box-shadow($firstLayerColor, $mainColor, $secondLayerColor, $opacity: 0.7) {
     box-shadow:
     inset 0 0 50px RGBA($firstLayerColor, $opacity),

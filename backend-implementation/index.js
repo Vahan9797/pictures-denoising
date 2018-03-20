@@ -18,8 +18,7 @@ app.engine(env('VIEW_ENGINE'), createEngine({ beautify: true }));
 // <--
 
 app.get('/', (req, res) => {
-  const isDevMode = env('NODE_ENV') !== 'production';
-  res.render('index', { browserSyncUrl: isDevMode && `${env('PROTOCOL')}://${env('HOST')}:${+env('PORT') + 1}` });
+  res.render('index', { browserSyncUrl: env('NODE_ENV', 'production') && `${env('PROTOCOL')}://${env('HOST')}:${+env('PORT') + 1}` });
 });
 
 app.use('/public', express.static('public'));

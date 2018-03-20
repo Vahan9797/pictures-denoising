@@ -40,11 +40,12 @@ if [ "$1" = "--scss" ]; then
 	echo ""
 fi
 
-
+# I have no idea how the line below works, same goes for start script in package.json...
+# The fact is, it works, so don't ask anything
 (echo "Launching server on port 8080..."; yarn start) && (echo 'Compiling scss files...'; yarn gulp) &
 SERVER_PID=$!
 echo "Compiling client-side bundle..." && yarn build-js
 BUNDLE_PID=$!
 wait
 # After interrupting the execution clear background processes
-kill $GULP_PID $BUNDLE_PID $SERVER_PID
+kill $BUNDLE_PID $SERVER_PID

@@ -5,11 +5,9 @@
   max-width: inherit;
   height: 150px;
   padding: 0 5px;
-  display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
   margin-bottom: 20px;
+  @include flexbox(space-between, flex-start);
 
   .Image {
     width: 100px;

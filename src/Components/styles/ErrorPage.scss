@@ -1,9 +1,8 @@
 .ErrorPage {
 	height: 30vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	flex-direction: column;
+	@include flexbox();
+
 	& > * {
 		line-height: 2;
 	}

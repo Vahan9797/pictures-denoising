@@ -1,23 +1,20 @@
 .Uploader {
-	display: flex;
-	align-items: center;
 	width: 60vw;
 	max-width: 80vw;
 	max-height: 80vh;
 	min-width: 20vw;
 	height: 60vh;
 	min-height: 20vh;
-	justify-content: center;
 	flex-direction: column;
+	@include flexbox();
+
 	& > * {
 		line-height: 2;
 	}
 
 	.file-input {
-		display: flex;
 		position: relative;
 		flex-direction: column;
-		align-items: center;
 
 		width: inherit;
 		height: inherit;
@@ -30,6 +27,7 @@
 		border-radius: 5vh;
 		margin: 2vh 0;
 		color: $uploaderMainColor;
+		@include flexbox();
 
 		&.drag-enter,&.drag-over {
 			.upload-icon > .glyphicon,.upload-message {
@@ -51,12 +49,11 @@
 		.upload-icon {
 			position: absolute;
 			box-shadow: none;
-			display: flex;
-			align-items: center; 
 			font-size: 20vh;
 			height: 75%;
 			color: inherit;
 			opacity: 0.8;
+			@include flexbox(start, center);
 
 			& > .glyphicon {
 				border-radius: 50%;
@@ -67,13 +64,12 @@
 		}
 
 		.upload-message {
-			display: flex;
 			box-shadow: none;
 			height: 90%;
-			align-items: flex-end;
 			color: inherit;
 			opacity: 0.8;
 			font-size: 2vw;
+			@include flexbox(normal, flex-end);
 
 			span {
 				padding: 2vh 2vw;

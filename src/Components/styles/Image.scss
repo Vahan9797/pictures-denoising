@@ -1,5 +1,4 @@
 .Image {
-  display: flex;
   position: absolute;
   left: 0;
   top: 0;
@@ -7,8 +6,7 @@
   bottom: 0;
   border-radius: inherit;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  @include flexbox(space-between, center);
 
   &.item {
     margin: 0 auto;
@@ -23,10 +21,9 @@
   }
 
   .broken-img-container {
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
     flex: 1;
+    @include flexbox(space-between, normal);
 
     .broken-img-icon {
       &::before, &::after {

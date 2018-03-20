@@ -14,15 +14,15 @@ class Image extends Component {
 
     render() {
         const { url, name, showBrokenImg, listItem } = this.state;
-
+        console.log('test');
         return (
             <div className={`Image${listItem ? ' item' : ''}`}>
                 {url && <img src={url} />}
                 {showBrokenImg && <div className="broken-img-container">
                     <i className="broken-img-icon"></i>
                     {!listItem && <span className="broken-img-txt">
-											Please make sure your image is not corrupted and try again.
-										</span>}
+						Please make sure your image is not corrupted and try again.
+					</span>}
                 </div>}
             </div>
         )
