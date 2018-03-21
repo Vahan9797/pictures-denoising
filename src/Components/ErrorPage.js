@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 
 class ErrorPage extends Component {
-  redirectToHome() {
-    fetch('http://localhost:8080/');
-  }
-
-  componentDidMount() {
-    let error = this.props.error;
-    let errorMsg = this.props.errorMsg;
-    debugger;
-  }
-
   render() {
     return (
       <div className="ErrorPage">

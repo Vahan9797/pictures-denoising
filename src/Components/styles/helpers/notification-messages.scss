@@ -1,0 +1,35 @@
+.Notification {
+	.notification-type {
+		flex-direction: column;
+		font-smoothing: antialiased;
+		@include flexbox(space-between, flex-start);
+		@include notification('info');
+
+		&.type-success {
+			@include notification('success');
+		}
+
+		&.type-warning {
+			@include notification('warning');
+		}
+
+		&.type-error {
+			@include notification('error');
+		}
+
+		.status-code {
+			font-size: 25px;
+			text-align: center;
+			color: inherit;
+			background: inherit;
+		}
+
+		.message {
+			font-size: 15px;
+			word-wrap: break-word;
+			word-break: break-word;
+			color: inherit;
+			background: inherit;
+		}
+	}
+}

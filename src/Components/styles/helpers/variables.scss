@@ -14,3 +14,18 @@ $uploaderBorderColor: #e4e4c5;
 $mainErrorColor: #d9534f;
 
 $mainHeaderColor: #222;
+
+/* Notifications */
+$notificationInfoColorRGB: 0, 153, 204;
+$notificationInfoBgRGB: 241, 241, 235;
+$notificationSuccessColorRGB: 129, 192, 77;
+$notificationSuccessBgRGB: 82, 161, 120;
+$notificationWarningColorRGB: 255, 181, 181;
+$notificationWarningBgRGB: 255, 181, 53;
+$notificationErrorColorRGB: 209, 195, 195;
+$notificationErrorBgRGB: 209, 67, 67;
+$notificationInfoGlowColorRGB: ($notificationInfoBgRGB, $defaultFirstGlowColorRGB, $notificationInfoColorRGB);
+$notificationSuccessGlowColorRGB: ($notificationSuccessBgRGB, $defaultFirstGlowColorRGB, $notificationSuccessColorRGB);
+$notificationWarningGlowColorRGB: ($notificationWarningBgRGB, $defaultFirstGlowColorRGB, $notificationWarningColorRGB);
+$notificationErrorGlowColorRGB: ($notificationErrorBgRGB, $defaultFirstGlowColorRGB, $notificationErrorColorRGB);
+/* ------------- */

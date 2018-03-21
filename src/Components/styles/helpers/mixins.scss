@@ -18,3 +18,23 @@
     -10px 0 80px RGBA($mainColor, $opacity),
     10px 0 80px RGBA($secondLayerColor, $opacity);
 }
+
+@mixin notification($type: 'info') {
+	@if $type == 'success' {
+		color: RGB($notificationSuccessColorRGB);
+		background: RGB($notificationSuccessBgRGB);
+		@include box-shadow($notificationSuccessGlowColorRGB...);
+	} @else if $type == 'warning' {
+		color: RGB($notificationWarningColorRGB);
+		background: RGB($notificationWarningBgRGB);
+		@include box-shadow($notificationWarningGlowColorRGB...);
+	} @else if $type == 'error' {
+		color: RGB($notificationErrorColorRGB);
+		background: RGB($notificationErrorBgRGB);
+		@include box-shadow($notificationErrorGlowColorRGB...);
+	} @else {
+		color: RGB($notificationInfoColorRGB);
+		background: RGB($notificationInfoBgRGB);
+		@include box-shadow($notificationInfoGlowColorRGB...);
+	}
+}

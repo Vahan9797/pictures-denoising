@@ -5,25 +5,21 @@ const { FORBIDDEN, ERROR } = RESPONSE;
 
 export default class Storage {
 	static upload(form) {
-    const req = typeof form.req === 'object' && form.req;
-    delete form.req;
-
-    console.log(form);
     return new Promise((resolve, reject) => {
-      form.parse(req, (err, fields, { fileUploaded }) => {
+      form.parse(form.req, (err, fields, files) => {
         const { size, msg } = MAX_FILE_SIZE;
 
         if(err) {
           err.status = err.status || ERROR;
           reject(err);
         }
-        if(fileUploaded.size > size) {
+        if(!files.upload || files.upload.size > size) {
           const err = new Error(msg);
           err.status = FORBIDDEN;
           reject(err);
         }
 
-        fs.rename(fileUploaded.path, `${IMG_FILES_DIR}/${req.body.file.name}`, err => {
+        fs.rename(files.upload.path, `${IMG_FILES_DIR}/${req.body.file.name}`, err => {
           if(err) {
             err.status = err.status || ERROR;
             reject(err);

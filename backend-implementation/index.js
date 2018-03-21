@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
 app.use('/public', express.static('public'));
 app.use('/scripts', express.static('node_modules/bootstrap/dist'));
 app.use('/roboto-font', express.static('node_modules/typeface-roboto'));
-app.use(bodyParser.urlencoded({ defer: true, extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: 524288000, defer: true, extended: true }));
+app.use(bodyParser.json({ limit: 524288000 }));
 
 app.use('/api', restController(api));
 

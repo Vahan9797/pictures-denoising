@@ -60,11 +60,12 @@ class Uploader extends Component {
 
 	submitFiles() {
 		const { validFiles } = this.state;
-		requestApi('upload', { file: validFiles[0] }).then(res => console.log(res));
+		requestApi('upload', { files: validFiles }).then(res => console.log(res));
 	}
 
 	render() {
 		const { validFiles, disableFileUpload, dropZoneMsg, multipleFileUpload, onUploaderClass, glyphIcon } = this.state;
+		const lastValidFile = !!validFiles.length && validFiles[validFiles.length - 1];
 		return (
 			<div className="Uploader">
 				<div className={`file-input${onUploaderClass && ` ${onUploaderClass}`}`}>
@@ -72,13 +73,15 @@ class Uploader extends Component {
 					{!validFiles.length && <div className="upload-message"><span>{dropZoneMsg}</span></div>}
 					<FormControl
 						type="file"
+						encType="multipart/form-data"
             accept="image/x-png,image/jpeg,image/jpg"
+            name="upload"
             onDragEnter={() => this.changeUploaderStyle('drag-enter')}
             onDragOver={() => this.changeUploaderStyle('drag-over')}
             onDragLeave={() => this.changeUploaderStyle('drag-leave')}
 						onChange={e => this.checkFileInput(e)}
 						disabled={disableFileUpload}/>
-					{!!validFiles.length && validFiles.map(({ src, name }) => <Image key={src} url={src} name={name}/>)}
+						{!!lastValidFile && <Image key={lastValidFile.src} url={lastValidFile.src} name={lastValidFile.name}/>}
 				</div>
 				{validFiles.length > 1 && <ImageList files={validFiles}/>}
 				<Button

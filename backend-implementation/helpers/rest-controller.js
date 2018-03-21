@@ -1,6 +1,6 @@
 import { RESPONSE, MESSAGES, IMG_FILES_DIR, FILE_UPLOAD_SUCCESS } from "./constants";
 import Storage from './Storage';
-import formidable from 'formidable';
+import { IncomingForm } from 'formidable';
 
 const { SUCCESS, NOT_FOUND, ERROR } = RESPONSE;
 
@@ -14,7 +14,7 @@ export default function restController(router) {
     router.post('/multi-upload', (req, res) => {
         Storage.multiUpload(formBuilder(req))
           .then(() => res.status(SUCCESS).send({ msg: FILE_UPLOAD_SUCCESS }))
-          .catch(({ status, msg }) => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
+          .catch(({ status, msg }) => {console.log(status, msg);res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] })});
     });
 
     router.post('/denoising', (req, res) => {
@@ -57,7 +57,7 @@ export default function restController(router) {
 }
 
 const formBuilder = (req, options = { uploadDir: IMG_FILES_DIR, keepExtensions: true }) => {
-  const form = formidable.IncomingForm();
+  const form = IncomingForm();
   form.req = req;
   Object.keys(options).forEach(option => form[option] = options[option]);
 
