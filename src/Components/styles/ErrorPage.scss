@@ -1,22 +1,21 @@
 .ErrorPage {
-	height: 30vh;
-	flex-direction: column;
-	@include flexbox();
+	height: $errorPageHeight;
+	@include flexbox(center, center, column);
 
 	& > * {
-		line-height: 2;
+		line-height: $errorPageLineHeight;
 	}
 
 	.error-status {
-		font-size: 40px;
-		color: $mainErrorColor;
+		font-size: $errorPageStatusCodeSize;
+		color: $errorPageStatusColor;
 	}
 
 	.error-message {
-		max-width: 400px;
+		max-width: $errorPageMessageMaxWidth;
+		font-size: $errorPageMessageFontSize;
+		color: $errorPageMessageColor;
 		font-smoothing: antialiased;
-		font-size: 44px;
-		color: #0f0f0f;
 		margin-bottom: 20px;
 	}
 }

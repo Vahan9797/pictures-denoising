@@ -1,8 +1,11 @@
 .Notification {
+	margin-left: -10%;
+	width: $notificationWidth;
+	font-smoothing: antialiased;
+	@include positionize(fixed, 15%, 50%);
+	@include flexbox(space-between, flex-start, column);
+
 	.notification-type {
-		flex-direction: column;
-		font-smoothing: antialiased;
-		@include flexbox(space-between, flex-start);
 		@include notification('info');
 
 		&.type-success {
@@ -18,18 +21,15 @@
 		}
 
 		.status-code {
-			font-size: 25px;
+			font-size: $notificationStatusCodeSize;
 			text-align: center;
-			color: inherit;
-			background: inherit;
+			@include inherit(('color', 'background'));
 		}
 
 		.message {
-			font-size: 15px;
-			word-wrap: break-word;
-			word-break: break-word;
-			color: inherit;
-			background: inherit;
+			font-size: $notificationMessageFontSize;
+			@include inherit(('color', 'background'));
+			@include word-wrapper();
 		}
 	}
 }

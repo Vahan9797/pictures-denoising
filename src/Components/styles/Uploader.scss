@@ -1,12 +1,7 @@
 .Uploader {
-	width: 60vw;
-	max-width: 80vw;
-	max-height: 80vh;
-	min-width: 20vw;
-	height: 60vh;
-	min-height: 20vh;
 	flex-direction: column;
-	@include flexbox();
+	@include attachToView($uploaderNormalSize, $uploaderMinSize, $uploaderMaxSize);
+	@include flexbox(center, center, column);
 
 	& > * {
 		line-height: 2;
@@ -15,23 +10,17 @@
 	.file-input {
 		position: relative;
 		flex-direction: column;
+		@include inherit(('width', 'height', 'min-height', 'min-width', 'max-width', 'max-height'));
 
-		width: inherit;
-		height: inherit;
-		min-height: inherit;
-		min-width: inherit;
-		max-width: inherit;
-		max-height: inherit;
-
-		border: 1px dashed $uploaderBorderColor;
-		border-radius: 5vh;
+		border: $uploaderBorder;
+		border-radius: $uploaderBorderRadius;
 		margin: 2vh 0;
 		color: $uploaderMainColor;
 		@include flexbox();
 
 		&.drag-enter,&.drag-over {
 			.upload-icon > .glyphicon,.upload-message {
-			    color: #0f0;
+			    color: RGB($uploaderMainGlowColorRGB);
 			    opacity: .6;
 			}
 
@@ -42,14 +31,14 @@
 
 		&.error {
 			.upload-icon > .glyphicon,.upload-message {
-				color: $mainErrorColor;
+				color: $errorPageMessageColor;
 			}
 		}
 	
 		.upload-icon {
 			position: absolute;
 			box-shadow: none;
-			font-size: 20vh;
+			font-size: $uploadIconSize;
 			height: 75%;
 			color: inherit;
 			opacity: 0.8;
@@ -57,9 +46,7 @@
 
 			& > .glyphicon {
 				border-radius: 50%;
-				font-size: inherit;
-				color: inherit;
-				opacity: inherit;
+				@include inherit(('font-size', 'color', 'opacity'));
 			}
 		}
 

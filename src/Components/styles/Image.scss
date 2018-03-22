@@ -1,12 +1,7 @@
 .Image {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
   border-radius: inherit;
-  flex-direction: column;
-  @include flexbox(space-between, center);
+  @include positionize(absolute, 0);
+  @include flexbox(space-between, center, column);
 
   &.item {
     margin: 0 auto;
@@ -21,9 +16,7 @@
   }
 
   .broken-img-container {
-    flex-direction: column;
-    flex: 1;
-    @include flexbox(space-between, normal);
+    @include flexbox(space-between, normal, column);
 
     .broken-img-icon {
       &::before, &::after {
@@ -32,9 +25,8 @@
     }
 
     .broken-img-txt {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      color: #d4d4c9;
+      color: $brokenImageTextColor;
+      @include word-wrapper();
     }
   }
 }

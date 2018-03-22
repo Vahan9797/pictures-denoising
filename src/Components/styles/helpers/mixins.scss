@@ -1,11 +1,58 @@
-@mixin flexbox($justifyContent: center, $alignItems: center) {
+@mixin flexbox($justifyContent: center, $alignItems: center, $flexDirection: row) {
 	display: flex;
+	flex-direction: $flexDirection;
+
 	@if $justifyContent != center and $alignItems == center {
 		justify-content: $justifyContent;
 		align-items: $justifyContent;
 	} @else {
 		justify-content: $justifyContent;
 		align-items: $alignItems;
+	}
+}
+
+@mixin positionize($position: absolute, $top: auto, $left: auto, $right: auto, $bottom: auto) {
+	position: $position;
+	
+	@if $top != auto and $left == auto and $right == auto and $bottom == auto {
+		top: $top;
+		left: $top;
+		right: $top;
+		bottom: $top;
+	} @else {
+		top: $top;
+		left: $left;
+		right: $right;
+		bottom: $bottom;
+	}
+}
+
+@mixin inherit($selectorList) {
+	@each $selector in $selectorList {
+		#{$selector}: inherit;
+	}
+}
+
+@mixin word-wrapper() {
+	word-wrap: break-word;
+	word-break: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+@mixin attachToView($normal, $min, $max, $measureH: 'vh', $measureW: 'vw') {
+	height: #{$normal}#{$measureH};
+	min-height: #{$min}#{$measureH};
+	max-height: #{$max}#{$measureH};
+
+	@if $measureH != 'vh' and $measureW == 'vw' {
+		width: #{$normal}#{$measureH};
+		min-width: #{$min}#{$measureH};
+		max-width: #{$max}#{$measureH};
+	} @else {
+		width: #{$normal}#{$measureW};
+		min-width: #{$min}#{$measureW};
+		max-width: #{$max}#{$measureW};
 	}
 }
 

@@ -37,26 +37,10 @@ export default function restController(router) {
           .catch(({ status, msg }) => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
     });
 
-    router.use((req, res, next) => {
-      let err = new Error(MESSAGES[NOT_FOUND]);
-      err.status = NOT_FOUND;
-      next(err);
-    });
-
-    router.use((err, req, res, next) => {
-      const defaultCase = new Error(MESSAGES[ERROR]);
-      defaultCase.status = ERROR;
-
-      res.status(err.status || defaultCase.status).render('index', {
-          errorMsg: err.message || defaultCase.message,
-          error: err || defaultCase
-      });
-    });
-
     return router;
 }
 
-const formBuilder = (req, options = { uploadDir: IMG_FILES_DIR, keepExtensions: true }) => {
+const formBuilder = (req, options = { uploadDir: IMG_FILES_DIR, keepExtensions: true, multiples: true }) => {
   const form = IncomingForm();
   form.req = req;
   Object.keys(options).forEach(option => form[option] = options[option]);

@@ -1,21 +1,57 @@
-// this vars are for box-shadow mixin usage of uploader and image item -->
+// App -->
 $defaultFirstGlowColorRGB: 255, 255, 255;
-$imageItemMainGlowColorRGB: 0, 0, 255;
-$imageItemSecondaryGlowColorRGB: 0, 128, 255;
+$appHeaderHeight: 120px;
+$appHeaderColor: #fff;
+$appHeaderColor: #222;
+$appIntroFontSize: 2.5vh;
+$appIntroLineHeight: 2;
+$appIntroFontFamily: "Roboto", cursive, sans-serif;
+// <--
+
+// Error Page -->
+$errorPageHeight: 80vh;
+$errorPageLineHeight: 2;
+$errorPageStatusCodeSize: 10vh;
+$errorPageStatusColor: #d9534f;
+$errorPageMessageMaxWidth: 20vw;
+$errorPageMessageFontSize: 6vh;
+$errorPageMessageColor: #0f0f0f;
+// <--
+
+// Uploader -->
+$uploaderMainColor: #008000;
+$uploaderNormalSize: 60;
+$uploaderMinSize: 20;
+$uploaderMaxSize: 80;
+$uploaderBorder: 1px dashed #e4e4c5;
+$uploaderBorderRadius: 5vh;
+$uploadIconSize: 20vh;
 $uploaderMainGlowColorRGB: 0, 255, 0;
 $uploaderSecondaryGlowColorRGB: 0, 255, 128;
-
 $uploaderGlowColorRGB: ($uploaderMainGlowColorRGB, $defaultFirstGlowColorRGB, $uploaderSecondaryGlowColorRGB);
+// <--
+
+// Image -->
+$brokenImageTextColor: #d4d4c9;
+$imageHeight: 100%;
+$imageWidth: 100%;
+$imageItemMainGlowColorRGB: 0, 0, 255;
+$imageItemSecondaryGlowColorRGB: 0, 128, 255;
 $imageItemGlowColorRGB: ($imageItemMainGlowColorRGB, $defaultFirstGlowColorRGB, $imageItemSecondaryGlowColorRGB);
 // <--
 
-$uploaderMainColor: #008000;
-$uploaderBorderColor: #e4e4c5;
-$mainErrorColor: #d9534f;
+// ImageList -->
+$imageListBorder: 1px dashed #e4e4c5;
+$imageListMinWidth: 250px;
+$imageListHeight: 150px;
+$imageListChildHeight: 100px;
+$imageListChildWidth: 98px;
+// <--
 
-$mainHeaderColor: #222;
-
-/* Notifications */
+// Notifications -->
+$notificationWidth: 20%;
+$notificationStatusCodeSize: 25px;
+$notificationMessageFontSize: 15px;
 $notificationInfoColorRGB: 0, 153, 204;
 $notificationInfoBgRGB: 241, 241, 235;
 $notificationSuccessColorRGB: 129, 192, 77;
@@ -28,4 +64,4 @@ $notificationInfoGlowColorRGB: ($notificationInfoBgRGB, $defaultFirstGlowColorRG
 $notificationSuccessGlowColorRGB: ($notificationSuccessBgRGB, $defaultFirstGlowColorRGB, $notificationSuccessColorRGB);
 $notificationWarningGlowColorRGB: ($notificationWarningBgRGB, $defaultFirstGlowColorRGB, $notificationWarningColorRGB);
 $notificationErrorGlowColorRGB: ($notificationErrorBgRGB, $defaultFirstGlowColorRGB, $notificationErrorColorRGB);
-/* ------------- */
+// <--

@@ -1,16 +1,15 @@
 .ImageList {
 	position: relative;
-  border: 1px dashed #e4e4c5;
-  min-width: 250px;
+  border: $imageListBorder;
+  min-width: $imageListMinWidth;
   max-width: inherit;
-  height: 150px;
+  height: $imageListHeight;
   padding: 0 5px;
-  flex-direction: row;
   margin-bottom: 20px;
   @include flexbox(space-between, flex-start);
 
   .Image {
-    width: 100px;
-    height: 98px;
+    width: $imageListChildWidth;
+    height: $imageListChildHeight;
   }
 }

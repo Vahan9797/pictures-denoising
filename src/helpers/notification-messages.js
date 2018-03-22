@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Notification extends Component {
+class Notification extends Component {
 	constructor(props) {
 		super(props);
 		{ type, duration, status, message } = this.props;
@@ -22,4 +22,8 @@ export default class Notification extends Component {
 			<div className="duration-time"></div>
 		</div>
 	}
+}
+
+export default function showNotification(type = 'info', status = 100, msg = 'Picture Denoising sucks.', duration = 3200) {
+	return (<Notification type={type} status={status} message={msg} duration={duration}/>);
 }

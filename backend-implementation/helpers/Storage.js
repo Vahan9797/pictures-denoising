@@ -1,5 +1,5 @@
 import { RESPONSE, MAX_FILE_SIZE, IMG_FILES_DIR, MESSAGES } from "./constants";
-import fs from 'fs-extra';
+import fs from 'fs';
 
 const { FORBIDDEN, ERROR } = RESPONSE;
 
@@ -19,7 +19,7 @@ export default class Storage {
           reject(err);
         }
 
-        fs.rename(files.upload.path, `${IMG_FILES_DIR}/${req.body.file.name}`, err => {
+        fs.rename(files.upload.path, `${IMG_FILES_DIR}/${req.body.files[0].name}`, err => {
           if(err) {
             err.status = err.status || ERROR;
             reject(err);
