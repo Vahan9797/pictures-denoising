@@ -2,10 +2,14 @@
 $defaultFirstGlowColorRGB: 255, 255, 255;
 $appHeaderHeight: 120px;
 $appHeaderColor: #fff;
-$appHeaderColor: #222;
+$appHeaderBgColor: #222;
+$appLogoMainGlowColorRGB: 255, 0, 255;
+$appLogoSecondaryGlowColorRGB: 0, 255, 255;
+$appTitleFontSize: 1.5em;
 $appIntroFontSize: 2.5vh;
 $appIntroLineHeight: 2;
 $appIntroFontFamily: "Roboto", cursive, sans-serif;
+$appLogoGlowColorRGB: ($appLogoMainGlowColorRGB, $defaultFirstGlowColorRGB, $appLogoSecondaryGlowColorRGB);
 // <--
 
 // Error Page -->

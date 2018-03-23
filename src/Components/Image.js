@@ -14,7 +14,6 @@ class Image extends Component {
 
     render() {
         const { url, name, showBrokenImg, listItem } = this.state;
-        console.log('test');
         return (
             <div className={`Image${listItem ? ' item' : ''}`}>
                 {url && <img src={url} />}

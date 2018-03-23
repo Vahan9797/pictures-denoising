@@ -1,4 +1,4 @@
-import { RESPONSE, MESSAGES, IMG_FILES_DIR, FILE_UPLOAD_SUCCESS } from "./constants";
+import { RESPONSE, MESSAGES, IMG_FILES_DIR, MAX_FILE_SIZE, FILE_UPLOAD_SUCCESS } from "./constants";
 import Storage from './Storage';
 import { IncomingForm } from 'formidable';
 
@@ -14,7 +14,7 @@ export default function restController(router) {
     router.post('/multi-upload', (req, res) => {
         Storage.multiUpload(formBuilder(req))
           .then(() => res.status(SUCCESS).send({ msg: FILE_UPLOAD_SUCCESS }))
-          .catch(({ status, msg }) => {console.log(status, msg);res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] })});
+          .catch(err => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
     });
 
     router.post('/denoising', (req, res) => {
@@ -40,10 +40,9 @@ export default function restController(router) {
     return router;
 }
 
-const formBuilder = (req, options = { uploadDir: IMG_FILES_DIR, keepExtensions: true, multiples: true }) => {
-  const form = IncomingForm();
+const formBuilder = (req, options = { uploadDir: IMG_FILES_DIR, keepExtensions: true, multiples: true, maxFileSize: MAX_FILE_SIZE.size }) => {
+  const form = new IncomingForm();
   form.req = req;
   Object.keys(options).forEach(option => form[option] = options[option]);
-
   return form;
 }

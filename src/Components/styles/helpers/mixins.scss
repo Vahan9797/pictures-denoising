@@ -71,17 +71,36 @@
 		color: RGB($notificationSuccessColorRGB);
 		background: RGB($notificationSuccessBgRGB);
 		@include box-shadow($notificationSuccessGlowColorRGB...);
+		@include duration-time('success');
 	} @else if $type == 'warning' {
 		color: RGB($notificationWarningColorRGB);
 		background: RGB($notificationWarningBgRGB);
 		@include box-shadow($notificationWarningGlowColorRGB...);
+		@include duration-time('warning');
 	} @else if $type == 'error' {
 		color: RGB($notificationErrorColorRGB);
 		background: RGB($notificationErrorBgRGB);
 		@include box-shadow($notificationErrorGlowColorRGB...);
+		@include duration-time('error');
 	} @else {
 		color: RGB($notificationInfoColorRGB);
 		background: RGB($notificationInfoBgRGB);
 		@include box-shadow($notificationInfoGlowColorRGB...);
+		@include duration-time('info');
+	}
+}
+
+// this is a helper mixin for notification
+@mixin duration-time($type: 'info') {
+	.duration-time {
+		@if $type == 'success' {
+			background: linear-gradient(center bottom, RGB($notificationSuccessColorRGB) 50%, RGB($notificationSuccessBgRGB) 50%);
+		} @else if $type == 'warning' {
+			background: linear-gradient(center bottom, RGB($notificationWarningColorRGB) 50%, RGB($notificationWarningBgRGB) 50%);
+		} @else if $type == 'error' {
+			background: linear-gradient(center bottom, RGB($notificationErrorColorRGB) 50%, RGB($notificationErrorBgRGB) 50%);
+		} @else {
+			background: linear-gradient(center bottom, RGB($notificationInfoColorRGB) 50%, RGB($notificationInfoBgRGB) 50%);
+		}
 	}
 }

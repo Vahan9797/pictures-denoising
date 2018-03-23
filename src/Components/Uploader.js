@@ -3,9 +3,11 @@ import { Input, FormControl, Glyphicon } from 'react-bootstrap';
 import Image from './Image';
 import ImageList from './ImageList';
 import Button from 'material-ui/Button';
+import Circular from 'material-ui/Progress/CircularProgress';
 import { DROPZONE, ICON, UP_CLASS } from '../helpers/constants';
 
 import requestApi from '../helpers/request-api';
+import showNotification from '../helpers/notification-messages';
 
 class Uploader extends Component {
 	constructor(props) {
@@ -14,7 +16,7 @@ class Uploader extends Component {
 		this.state = {
 			dropZoneMsg: DROPZONE.DRAG,
 			onUploaderClass: '',
-			disableFileUpload: false,
+			notificationSettings: false,
 			glyphIcon: ICON.UPLOAD,
 			validFiles: [],
 			isUploading: false
@@ -60,14 +62,18 @@ class Uploader extends Component {
 
 	submitFiles() {
 		const { validFiles } = this.state;
-		requestApi('upload', { files: validFiles }).then(res => console.log(res));
+		this.setState({ isUploading: true }, () => {
+			requestApi('upload', { files: validFiles })
+			.then(({ status, msg }) => this.setState({ notificationSettings: {status, msg}, isUploading: false }))
+		});
 	}
 
 	render() {
-		const { validFiles, disableFileUpload, dropZoneMsg, multipleFileUpload, onUploaderClass, glyphIcon } = this.state;
+		const { validFiles, notificationSettings, dropZoneMsg, multipleFileUpload, onUploaderClass, isUploading, glyphIcon } = this.state;
 		const lastValidFile = !!validFiles.length && validFiles[validFiles.length - 1];
 		return (
 			<div className="Uploader">
+				{notificationSettings && showNotification(notificationSettings, () => this.setState({ notificationSettings: false }))}
 				<div className={`file-input${onUploaderClass && ` ${onUploaderClass}`}`}>
 					{!validFiles.length && <div className="upload-icon"><Glyphicon glyph={glyphIcon}/></div>}
 					{!validFiles.length && <div className="upload-message"><span>{dropZoneMsg}</span></div>}
@@ -80,17 +86,19 @@ class Uploader extends Component {
             onDragOver={() => this.changeUploaderStyle('drag-over')}
             onDragLeave={() => this.changeUploaderStyle('drag-leave')}
 						onChange={e => this.checkFileInput(e)}
-						disabled={disableFileUpload}/>
-						{!!lastValidFile && <Image key={lastValidFile.src} url={lastValidFile.src} name={lastValidFile.name}/>}
+						disabled={notificationSettings}/>
+						{!!lastValidFile && <Image url={lastValidFile.src} name={lastValidFile.name}/>}
 				</div>
 				{validFiles.length > 1 && <ImageList files={validFiles}/>}
 				<Button
 					raised
 					style={{ fontSize: '1.5vh' }}
 					color="secondary"
-					onClick={() => this.submitFiles()}
-					disabled={!validFiles.length}
-					>{`Submit File${validFiles.length > 1 ? `s [${validFiles.length}]` : ''}`}</Button>
+					onClick={() => !isUploading && this.submitFiles()}
+					disabled={!validFiles.length}>
+						{!isUploading && `Submit File${validFiles.length > 1 ? `s [${validFiles.length}]` : ''}`}
+						{isUploading && <Circular color="inherit" size={20}/>}
+					</Button>
 			</div>
 		)
 	}

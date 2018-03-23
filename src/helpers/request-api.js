@@ -14,8 +14,7 @@ export default function requestApi(type, body, callback /*callback is optional*/
 		cache: 'no-cache',
 		mode: 'cors',
 		headers: {
-			'Accept': 'application/json, application/xml, image/jpeg, image/jpg, image/x-png, *.*',
-  		'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+			'Accept': 'application/json, application/xml, image/jpeg, image/jpg, image/x-png, *.*'
 		}
 	}
 

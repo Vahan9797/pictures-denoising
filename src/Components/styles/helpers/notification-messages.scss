@@ -1,7 +1,8 @@
 .Notification {
 	margin-left: -10%;
-	width: $notificationWidth;
+	z-index: 100;
 	font-smoothing: antialiased;
+	width: $notificationWidth;
 	@include positionize(fixed, 15%, 50%);
 	@include flexbox(space-between, flex-start, column);
 
@@ -21,8 +22,8 @@
 		}
 
 		.status-code {
-			font-size: $notificationStatusCodeSize;
 			text-align: center;
+			font-size: $notificationStatusCodeSize;
 			@include inherit(('color', 'background'));
 		}
 
@@ -30,6 +31,16 @@
 			font-size: $notificationMessageFontSize;
 			@include inherit(('color', 'background'));
 			@include word-wrapper();
+		}
+	}
+
+	@keyframes Notification-Progress {
+		0% {
+			width: 90%;
+		}
+
+		100% {
+			width: 0;
 		}
 	}
 }

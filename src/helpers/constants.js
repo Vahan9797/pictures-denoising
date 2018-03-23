@@ -16,3 +16,5 @@ export const UP_CLASS = {
 	DRAG_ENTER: 'drag-enter',
 	DRAG_LEAVE: 'drag-leave'
 }
+
+export const NOTIFICATION_DURATION = 3200;
