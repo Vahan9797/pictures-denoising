@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, FormControl, Glyphicon } from 'react-bootstrap';
+import { FormControl, Glyphicon } from 'react-bootstrap';
 import Image from './Image';
 import ImageList from './ImageList';
 import Button from 'material-ui/Button';
@@ -62,14 +62,16 @@ class Uploader extends Component {
 
 	submitFiles() {
 		const { validFiles } = this.state;
+		const reqType = validFiles.length > 1 ? 'multi-upload' : 'upload';
 		this.setState({ isUploading: true }, () => {
-			requestApi('upload', { files: validFiles })
-			.then(({ status, msg }) => this.setState({ notificationSettings: {status, msg}, isUploading: false }))
+			requestApi(reqType, { files: validFiles })
+				.then(({ status, msg }) => this.setState({ notificationSettings: { type: 'success', status, msg }, isUploading: false }))
+				.catch(({ status, msg }) => this.setState({ notificationSettings: {type: 'error', status, msg }, isUploading: false }));
 		});
 	}
 
 	render() {
-		const { validFiles, notificationSettings, dropZoneMsg, multipleFileUpload, onUploaderClass, isUploading, glyphIcon } = this.state;
+		const { validFiles, notificationSettings, dropZoneMsg, onUploaderClass, isUploading, glyphIcon } = this.state;
 		const lastValidFile = !!validFiles.length && validFiles[validFiles.length - 1];
 		return (
 			<div className="Uploader">

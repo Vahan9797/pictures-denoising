@@ -19,7 +19,7 @@ class Notification extends Component {
 
 	render() {
 		const { type, duration, status, message } = this.state;
-		<div className="Notification">
+		return (<div className="Notification">
 			<style dangerouslySetInnerHTML={{ __html: `
 				.duration-time: {
 					animation: Notification-Progress ${duration}ms linear;
@@ -30,7 +30,7 @@ class Notification extends Component {
 				{message && <div className="message">{message}</div>}
 				<div className="duration-time"></div>
 			</div>
-		</div>
+		</div>)
 	}
 }
 

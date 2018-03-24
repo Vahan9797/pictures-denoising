@@ -24,8 +24,8 @@ export default class Storage {
     })
 	}
 
-	static multiUpload(form) {
-		// TODO
+	static multiUpload(forms) {
+		return Promise.all(forms.map(form => Storage.upload(form)));
 	}
 
 	static download(file) {

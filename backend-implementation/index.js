@@ -18,14 +18,14 @@ app.engine(env('VIEW_ENGINE'), createEngine({ beautify: true }));
 // <--
 
 app.get('/', (req, res) => {
-  res.render('index', { browserSyncUrl: env('NODE_ENV', 'production') && `${env('PROTOCOL')}://${env('HOST')}:${+env('PORT') + 1}` });
+  res.render('index', { browserSyncUrl: !env('NODE_ENV', 'production') && `${env('PROTOCOL')}://${env('HOST')}:${+env('PORT') + 1}` });
 });
 
 app.use('/public', express.static('public'));
 app.use('/scripts', express.static('node_modules/bootstrap/dist'));
 app.use('/roboto-font', express.static('node_modules/typeface-roboto'));
-app.use(bodyParser.urlencoded({ limit: 524288000, defer: true, extended: true }));
-app.use(bodyParser.json({ limit: 524288000 }));
+app.use(bodyParser.urlencoded({ limit: 5000000, defer: true, extended: true }));
+app.use(bodyParser.json({ limit: 5000000 }));
 
 app.use('/api', restController(api));
 

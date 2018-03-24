@@ -17,7 +17,7 @@ export default function env(/* arguments */) {
 			if(Array.isArray(args[0])) return [...args[0]].map(arg => process.env[arg]);
             return process.env[args[0]];
 		case 2:
-			return process.env[args[0]] !== args[1];
+			return process.env[args[0]] === args[1];
 		case 0:
 			return process.env;
 		default:
