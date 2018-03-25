@@ -1,10 +1,22 @@
 import { RESPONSE, IMG_FILES_DIR, MESSAGES } from "./constants";
-import fs from 'fs';
+import { rename, existsSync, exists, mkdir, mkdirSync } from 'fs';
 
 const { FORBIDDEN, ERROR } = RESPONSE;
 
 export default class Storage {
+    static checkDirExists(path, asyncMode = false) {
+      return asyncMode ? exists(path) : existsSync(path);
+    }
+
+    static makeDir(path, asyncMode = false) {
+      if(Storage.checkDirExists(path, asyncMode)) {
+        return;
+      }
+      return asyncMode ? mkdir(path) : mkdirSync(path);
+    }
+
 	static upload(form) {
+    Storage.makeDir(`${IMG_FILES_DIR}/uploads`);
     return new Promise((resolve, reject) => {
       form.parse(form.req, (err, fields, files) => {
         if(err) {
@@ -12,7 +24,7 @@ export default class Storage {
           reject(err);
         }
 
-        fs.rename(files.upload.path, `${IMG_FILES_DIR}/${files.upload.name}`, err => {
+        rename(files.upload.path, `${IMG_FILES_DIR}/uploads/${files.upload.name}`, err => {
           if(err) {
             err.status = err.status || ERROR;
             reject(err);

@@ -40,7 +40,7 @@ export default function restController(router) {
     return router;
 }
 
-const formBuilder = (req, options = { uploadDir: IMG_FILES_DIR, keepExtensions: true, multiples: true, maxFileSize: MAX_FILE_SIZE.size }) => {
+const formBuilder = (req, options = { uploadDir: `${IMG_FILES_DIR}/uploads`, keepExtensions: true, multiples: true, maxFileSize: MAX_FILE_SIZE.size }) => {
   const form = new IncomingForm();
   form.req = req;
   Object.keys(options).forEach(option => form[option] = options[option]);

@@ -9,5 +9,6 @@
 	    }
 	  ],
 	  "react"
-	]
+	],
+	"plugins": [["reflective-bind/babel", {"log": "debug"}]]
 }

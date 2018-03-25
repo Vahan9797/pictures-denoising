@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.1",
     "bootstrap": "^3.3.7",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "express-react-views": "^0.10.4",
     "formidable": "^1.2.0",
     "material-ui": "^1.0.0-beta.30",
+    "pg-promise": "^8.2.2",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
     "react-dom": "^16.2.0",
@@ -34,6 +36,7 @@
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
     "nodemon": "^1.14.9",
+    "reflective-bind": "^0.1.0",
     "rimraf": "^2.6.2",
     "webpack": "^3.10.0"
   }
