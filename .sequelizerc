@@ -1,0 +1,4 @@
+module.exports = {
+	'migrations-path': './backend-implementation/db/migrations',
+	'models-path': './backend-implementation/db/models',
+}

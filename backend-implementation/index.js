@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { createEngine } from 'express-react-views';
 import restController from './helpers/rest-controller';
-import { RESPONSE, MESSAGES } from './helpers/constants';
+import { RESPONSE, MESSAGES, MAX_FILE_SIZE } from './helpers/constants';
 import env from './config/environment';
 
 const { ERROR, NOT_FOUND } = RESPONSE;
@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
 app.use('/public', express.static('public'));
 app.use('/scripts', express.static('node_modules/bootstrap/dist'));
 app.use('/roboto-font', express.static('node_modules/typeface-roboto'));
-app.use(bodyParser.urlencoded({ limit: 5000000, defer: true, extended: true }));
-app.use(bodyParser.json({ limit: 5000000 }));
+app.use(bodyParser.urlencoded({ limit: MAX_FILE_SIZE.size, defer: true, extended: true }));
+app.use(bodyParser.json({ limit: MAX_FILE_SIZE.size }));
 
 app.use('/api', restController(api));
 
@@ -40,8 +40,8 @@ app.use((err, req, res, next) => {
   defaultCase.status = ERROR;
 
   res.status(err.status || defaultCase.status).render('index', {
-      errorMsg: err.message || defaultCase.message,
-      error: err || defaultCase
+    errorMsg: err.message || defaultCase.message,
+    error: err || defaultCase
   });
 });
 

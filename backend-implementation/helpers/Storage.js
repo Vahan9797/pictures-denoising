@@ -4,16 +4,16 @@ import { rename, existsSync, exists, mkdir, mkdirSync } from 'fs';
 const { FORBIDDEN, ERROR } = RESPONSE;
 
 export default class Storage {
-    static checkDirExists(path, asyncMode = false) {
-      return asyncMode ? exists(path) : existsSync(path);
-    }
+  static checkDirExists(path, asyncMode = false) {
+    return asyncMode ? exists(path) : existsSync(path);
+  }
 
-    static makeDir(path, asyncMode = false) {
-      if(Storage.checkDirExists(path, asyncMode)) {
-        return;
-      }
-      return asyncMode ? mkdir(path) : mkdirSync(path);
+  static makeDir(path, asyncMode = false) {
+    if(Storage.checkDirExists(path, asyncMode)) {
+      return;
     }
+    return asyncMode ? mkdir(path) : mkdirSync(path);
+  }
 
 	static upload(form) {
     Storage.makeDir(`${IMG_FILES_DIR}/uploads`);

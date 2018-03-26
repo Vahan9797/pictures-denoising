@@ -3,29 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bluebird": "^3.5.1",
     "bootstrap": "^3.3.7",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "express-react-views": "^0.10.4",
     "formidable": "^1.2.0",
     "material-ui": "^1.0.0-beta.30",
-    "pg-promise": "^8.2.2",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",
+    "sequelize": "^4.37.4",
     "typeface-roboto": "0.0.50"
   },
   "scripts": {
-    "gulp": "gulp run-css",
-    "build-js": "nodemon ./node_modules/webpack/bin/webpack.js --exec babel-node --watch src",
     "build-express": "rimraf __backend-dist/ && babel backend-implementation/. --out-dir __backend-dist/ --copy-files --watch backend-implementation",
-    "start": "yarn build-express & nodemon __backend-dist/index.js &",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build-js": "nodemon ./node_modules/webpack/bin/webpack.js --exec babel-node --watch src",
+    "db-cmig": "sequelize migration:create",
+    "db-cmod": "sequelize model:create",
+    "db-migrate": "sequelize db:migrate",
+    "gulp": "gulp run-css",
+    "init-db": "sequelize init",
+    "start": "yarn build-express & nodemon __backend-dist/index.js &"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -38,6 +41,7 @@
     "nodemon": "^1.14.9",
     "reflective-bind": "^0.1.0",
     "rimraf": "^2.6.2",
+    "sequelize-cli": "^4.0.0",
     "webpack": "^3.10.0"
   }
 }
