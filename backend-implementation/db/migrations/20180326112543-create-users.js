@@ -1,5 +1,5 @@
 'use strict';
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Users', {
       id: {
@@ -11,12 +11,12 @@ module.exports = {
       username: {
         allowNull: false,
         unique: true,
-        type: Sequelize.VARCHAR
+        type: Sequelize.STRING(30)
       },
       email: {
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       password_digest: {
         allowNull: false,
@@ -37,7 +37,7 @@ module.exports = {
     .then(() => queryInterface.addConstraint('Users', ['age'], {
       type: 'check',
       where: {
-        age: { [Sequelize.Op.gt]: 1 }
+        age: { [Sequelize.Op.gt]: 0 }
       }
     }));
   },

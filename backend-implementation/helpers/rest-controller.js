@@ -1,4 +1,4 @@
-import { RESPONSE, MESSAGES, IMG_FILES_DIR, MAX_FILE_SIZE, FILE_UPLOAD_SUCCESS } from "./constants";
+import { RESPONSE, MESSAGES, FORM_BUILDER_OPTIONS, FILE_UPLOAD_SUCCESS } from "./constants";
 import Storage from './Storage';
 import { IncomingForm } from 'formidable';
 
@@ -40,7 +40,7 @@ export default function restController(router) {
     return router;
 }
 
-const formBuilder = (req, options = { uploadDir: `${IMG_FILES_DIR}/uploads`, keepExtensions: true, multiples: true, maxFileSize: MAX_FILE_SIZE.size }) => {
+const formBuilder = (req, options = FORM_BUILDER_OPTIONS) => {
   const form = new IncomingForm();
   form.req = req;
   Object.keys(options).forEach(option => form[option] = options[option]);

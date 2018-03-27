@@ -1,7 +1,7 @@
 'use strict';
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Images', {
+    return queryInterface.createTable('Image', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -27,5 +27,5 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface/*, Sequelize*/) => queryInterface.dropTable('Images')
+  down: (queryInterface/*, Sequelize*/) => queryInterface.dropTable('Image')
 };

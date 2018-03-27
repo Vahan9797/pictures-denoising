@@ -1,11 +1,14 @@
 'use strict';
-export default (sequelize, DataTypes) => {
+export default (sequelize, { STRING }) => {
   const Image = sequelize.define('Image', {
-    user_id: DataTypes.INTEGER
+    filePath: {
+      type: STRING,
+      allowNull: true
+    }
   }, {});
   Image.associate = (models) => {
-    Image.belongsTo(models.Todo, {
-    	foreignKey: 'user_id',
+    Image.belongsTo(models.Users, {
+    	foreignKey: 'img_id',
     	onDelete: 'CASCADE'
     });
   };

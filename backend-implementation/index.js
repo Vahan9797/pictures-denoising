@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
-import bodyParser from 'body-parser';
+import { json, urlencoded } from 'body-parser';
+import morgan from 'morgan';
 import path from 'path';
 import { createEngine } from 'express-react-views';
 import restController from './helpers/rest-controller';
@@ -24,8 +25,12 @@ app.get('/', (req, res) => {
 app.use('/public', express.static('public'));
 app.use('/scripts', express.static('node_modules/bootstrap/dist'));
 app.use('/roboto-font', express.static('node_modules/typeface-roboto'));
-app.use(bodyParser.urlencoded({ limit: MAX_FILE_SIZE.size, defer: true, extended: true }));
-app.use(bodyParser.json({ limit: MAX_FILE_SIZE.size }));
+app.use(urlencoded({ limit: MAX_FILE_SIZE.size, defer: true, extended: true }));
+app.use(json({ limit: MAX_FILE_SIZE.size }));
+
+if(!env('NODE_ENV', 'production')) {
+  app.use(morgan('dev'));
+}
 
 app.use('/api', restController(api));
 

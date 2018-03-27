@@ -25,7 +25,7 @@
     "build-js": "nodemon ./node_modules/webpack/bin/webpack.js --exec babel-node --watch src",
     "db-cmig": "sequelize migration:create",
     "db-cmod": "sequelize model:create",
-    "db-migrate": "sequelize db:migrate",
+    "db-migrate": "node __backend-dist/db/config/config-override.js && sequelize db:migrate",
     "gulp": "gulp run-css",
     "init-db": "sequelize init",
     "start": "yarn build-express & nodemon __backend-dist/index.js &"
@@ -38,6 +38,7 @@
     "browser-sync": "^2.23.6",
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
+    "morgan": "^1.9.0",
     "nodemon": "^1.14.9",
     "reflective-bind": "^0.1.0",
     "rimraf": "^2.6.2",

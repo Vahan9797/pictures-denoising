@@ -27,7 +27,7 @@ export default (sequelize, { TEXT, STRING, INTEGER }) => {
   Users.associate = (models) => {
     Users.hasMany(models.Image, {
       foreignKey: 'img_id',
-      as: 'Image'
+      as: 'Images'
     });
   };
   return Users;

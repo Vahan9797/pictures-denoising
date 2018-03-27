@@ -1,4 +1,7 @@
+// make sure you have run build before migration to have all changes in __backend-dist folder
 module.exports = {
 	'migrations-path': './backend-implementation/db/migrations',
 	'models-path': './backend-implementation/db/models',
+	'seeders-path': './backend-implementation/db/seeders',
+	'config': './__backend-dist/db/config/config-override.json'
 }
