@@ -14,7 +14,7 @@ export default function restController(router) {
     router.post('/multi-upload', (req, res) => {
         Storage.multiUpload(formBuilder(req))
           .then(() => res.status(SUCCESS).send({ msg: FILE_UPLOAD_SUCCESS }))
-          .catch(err => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
+          .catch(({ status, msg }) => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
     });
 
     router.post('/denoising', (req, res) => {
@@ -27,14 +27,18 @@ export default function restController(router) {
 
     router.post('/download', (req, res) => {
         Storage.download(formBuilder(req))
-          .then(() => res.status(SUCCESS).send({ msg: FILE_DOWNLOAD_SUCCESS }))
+          .then(file => res.status(SUCCESS).download(file))
           .catch(({ status, msg }) => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
     });
 
     router.post('/multi-download', (req, res) => {
         Storage.multiDownload(formBuilder(req))
-          .then(() => res.status(SUCCESS).send({ msg: FILE_DOWNLOAD_SUCCESS }))
+          .then(zip => res.status(SUCCESS).download(zip))
           .catch(({ status, msg }) => res.status(status || ERROR).send({ msg: msg || MESSAGES[ERROR] }));
+    });
+
+    router.get('/vzgo', (req, res) => {
+      res.status(SUCCESS).download(require('path').join(__dirname, '../../public/images/uploads/mini.jpg'));
     });
 
     return router;

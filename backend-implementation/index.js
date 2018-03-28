@@ -42,8 +42,8 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   const defaultCase = new Error(MESSAGES[ERROR]);
+  err.status = err.status || ERROR;
   defaultCase.status = ERROR;
-
   res.status(err.status || defaultCase.status).render('index', {
     errorMsg: err.message || defaultCase.message,
     error: err || defaultCase
