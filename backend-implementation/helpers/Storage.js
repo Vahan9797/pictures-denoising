@@ -92,3 +92,6 @@ export default class Storage {
 		return Storage.zip(files);
 	}
 }
+
+const { composeAbsolutePath, getFileExtension, checkDirExists, getFileFullName, makeDir, zip } = Storage;
+export { composeAbsolutePath, getFileExtension, checkDirExists, getFileFullName, makeDir, zip };
