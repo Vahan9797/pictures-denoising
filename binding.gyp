@@ -3,11 +3,9 @@
     {
       "target_name": "native_denoiser",
       "sources": [ "backend-implementation/native-denoising/denoising.cc" ],
-      "include_dirs": [ "/usr/include/opencv/" ],
-      "link_settings": {
-	      "libraries": [ "-lopencv_core, -lopencv_contrib" ],
-	      "libraries_dirs": [ "usr/lib" ]
-      }
+      "cflags_cc!": [ '-fno-rtti', '-fno-exceptions' ],
+      "include_dirs": [ "/usr/local/include/opencv, /usr/local/include/opencv2" ],
+      "libraries": [ "/usr/local/lib/libopencv_core.so" ]
     }
   ]
 }
