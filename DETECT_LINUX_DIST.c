@@ -23,6 +23,10 @@ int main(void) {
             configureBindingGyp("Arch");
             break;
         }
+        if(strstr(rel_line, "DISTRIB_ID=Ubuntu") || strstr(rel_line, "ID=ubuntu") || strstr(rel_line, "ID_LIKE=ubuntulinux")) {
+            configureBindingGyp("Ubuntu");
+            break;
+        }
     }
     fclose(release_files_content);
 
@@ -56,22 +60,22 @@ void configureBindingGyp(const char *dist) {
     }
 }
 
-char *replace_str(char *str, char *orig, char *rep, int start)
-{
-  static char temp[4096];
-  static char buffer[4096];
-  char *p;
+char *replace_str(char *str, char *orig, char *rep, int start) {
+    static char temp[4096];
+    static char buffer[4096];
+    char *p;
 
-  strcpy(temp, str + start);
+    strcpy(temp, str + start);
 
-  if(!(p = strstr(temp, orig)))  // Is 'orig' even in 'temp'?
-    return temp;
+    if(!(p = strstr(temp, orig))) {   // Is 'orig' even in 'temp'?
+        return temp;
+    }
 
-  strncpy(buffer, temp, p-temp); // Copy characters from 'temp' start to 'orig' str
-  buffer[p-temp] = '\0';
+    strncpy(buffer, temp, p-temp); // Copy characters from 'temp' start to 'orig' str
+    buffer[p-temp] = '\0';
 
-  sprintf(buffer + (p - temp), "%s%s", rep, p + strlen(orig));
-  sprintf(str + start, "%s", buffer);
+    sprintf(buffer + (p - temp), "%s%s", rep, p + strlen(orig));
+    sprintf(str + start, "%s", buffer);
 
-  return str;
+    return str;
 }
