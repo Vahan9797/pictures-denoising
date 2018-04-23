@@ -19,12 +19,12 @@ namespace denoiser {
 
 	bool validateArguments(const FunctionCallbackInfo<Value>& args, bool isMultiDenoising = false) {
 		Isolate* isolate = args.GetIsolate();
-		if(args->Length() < 2) {
-			isolate->ThrowException(Exception::Error(String::NewFromUtf8("Wrong number of arguments")));
+		if(args.Length() < 2) {
+			isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Wrong number of arguments")));
 			return false;
 		}
-		if(isMultiDenoising && !arg[0]->IsArray() || !args[0]->IsString() || !args[1]->IsString()) {
-			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8("Wrong arguments")));
+		if(isMultiDenoising && !args[0]->IsArray() || !args[0]->IsString() || !args[1]->IsString()) {
+			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments")));
 			return false;
 		}
 
@@ -35,8 +35,8 @@ namespace denoiser {
 		if(validateArguments(args)) {
 			Isolate* isolate = args.GetIsolate();
 			Mat img = imread(args[0]->ToString());
-			fastNlMeansDenoising(img, args[1], 3, 3, 7, 21);
-			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]));
+			fastNlMeansDenoising(img, args[1]->ToString(), 3, 3, 7, 21);
+			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]->ToString()));
 		};
 	}
 
@@ -44,8 +44,8 @@ namespace denoiser {
 		if(validateArguments(args)) {
 			Isolate* isolate = args.GetIsolate();
 			Mat img = imread(args[0]->ToString());
-			fastNlMeansDenoisingColored(img, args[1], 3, 3, 7, 21);
-			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]));
+			fastNlMeansDenoisingColored(img, args[1]->ToString(), 3, 3, 7, 21);
+			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]->ToString()));
 		}
 	}
 
@@ -58,8 +58,8 @@ namespace denoiser {
 				imgArr[i] = imread(args[0][i]->ToString());
 			}
 
-			fastNlMeansDenoisingMulti(imgArr, args[1], 3, 3, 7, 21);
-			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]));
+			fastNlMeansDenoisingMulti(imgArr, args[1]->ToString(), 3, 3, 7, 21);
+			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]->ToString()));
 		}
 	}
 
@@ -80,7 +80,7 @@ namespace denoiser {
 	void hasImageColors(const FunctionCallbackInfo<Value>& args) {
 		Isolate* isolate = args.GetIsolate();
 		if(!args[0]->IsString()) {
-			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8("hasImageColors: Your argument is not a string")));
+			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "hasImageColors: Your argument is not a string")));
 			return;
 		} else {
 			args.GetReturnValue().Set(Boolean::New(isolate, imread(args[0]->ToString()).channels() == 3));
