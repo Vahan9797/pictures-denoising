@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char *replace_str(char *str, char *orig, char *rep, int start);
+char *replace_str(char *, char *, char *, int start);
 void configureBindingGyp(const char *);
 
 int main(void) {
@@ -23,7 +23,7 @@ int main(void) {
             configureBindingGyp("Arch");
             break;
         }
-        if(strstr(rel_line, "DISTRIB_ID=Ubuntu") || strstr(rel_line, "ID=ubuntu") || strstr(rel_line, "ID_LIKE=ubuntulinux")) {
+        if(strstr(rel_line, "DISTRIB_ID=Ubuntu") || strstr(rel_line, "ID=ubuntu") || strstr(rel_line, "ID_LIKE=debian")) {
             configureBindingGyp("Ubuntu");
             break;
         }
@@ -48,9 +48,11 @@ void configureBindingGyp(const char *dist) {
     while(getline(&line, &len, binding_gyp) != -1) {
         if((strstr(line, "/usr/local/include") || strstr(line, "/usr/local/lib")) && dist == "Arch") {
             line = replace_str(line, "/usr/local", "/usr", 0);
+            printf("Line: %s", line);
         }
         if((strstr(line, "/usr/include") || strstr(line, "/usr/lib")) && dist == "Ubuntu") {
             line = replace_str(line, "/usr", "/usr/local", 0);
+            printf("Line: %s", line);
         }
     }
     fclose(binding_gyp);
@@ -68,14 +70,14 @@ char *replace_str(char *str, char *orig, char *rep, int start) {
     strcpy(temp, str + start);
 
     if(!(p = strstr(temp, orig))) {   // Is 'orig' even in 'temp'?
-        return temp;
+        return str;
     }
 
-    strncpy(buffer, temp, p-temp); // Copy characters from 'temp' start to 'orig' str
-    buffer[p-temp] = '\0';
+    strncpy(buffer, temp, p - temp); // Copy characters from 'temp' start to 'orig' str
+    buffer[p - temp] = '\0';
 
     sprintf(buffer + (p - temp), "%s%s", rep, p + strlen(orig));
     sprintf(str + start, "%s", buffer);
 
-    return str;
+    return replace_str(str, orig, rep, start + (p - temp) + 1);
 }
