@@ -17,13 +17,17 @@ namespace denoiser {
 	using cv::fastNlMeansDenoisingColored;
 	using cv::fastNlMeansDenoisingColoredMulti;
 
+	cv::String* V8_TO_CV_STR(String value) {
+		return (char *) value;
+	}
+
 	bool validateArguments(const FunctionCallbackInfo<Value>& args, bool isMultiDenoising = false) {
 		Isolate* isolate = args.GetIsolate();
 		if(args.Length() < 2) {
 			isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Wrong number of arguments")));
 			return false;
 		}
-		if(isMultiDenoising && !args[0]->IsArray() || !args[0]->IsString() || !args[1]->IsString()) {
+		if((isMultiDenoising && !args[0]->IsArray()) || !args[0]->IsString() || !args[1]->IsString()) {
 			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments")));
 			return false;
 		}
@@ -34,8 +38,8 @@ namespace denoiser {
 	void singleDenoisingGrayscale(const FunctionCallbackInfo<Value>& args) {
 		if(validateArguments(args)) {
 			Isolate* isolate = args.GetIsolate();
-			Mat img = imread(args[0]->ToString());
-			fastNlMeansDenoising(img, args[1]->ToString(), 3, 3, 7, 21);
+			Mat img = imread(V8_TO_CV_STR(args[0]->ToString()));
+			fastNlMeansDenoising(img, V8_TO_CV_STR(args[1]->ToString()), 3, 3, 7, 21);
 			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]->ToString()));
 		};
 	}
@@ -43,8 +47,8 @@ namespace denoiser {
 	void singleDenoisingColored(const FunctionCallbackInfo<Value>& args) {
 		if(validateArguments(args)) {
 			Isolate* isolate = args.GetIsolate();
-			Mat img = imread(args[0]->ToString());
-			fastNlMeansDenoisingColored(img, args[1]->ToString(), 3, 3, 7, 21);
+			Mat img = imread(V8_TO_CV_STR(args[0]->ToString()));
+			fastNlMeansDenoisingColored(img, V8_TO_CV_STR(args[1]->ToString()), 3, 3, 7, 21);
 			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]->ToString()));
 		}
 	}
@@ -55,10 +59,10 @@ namespace denoiser {
 			const int length = args[0]->length;
 			Mat* imgArr = Mat[length];
 			for(int i = 0; i < length; i++) {
-				imgArr[i] = imread(args[0][i]->ToString());
+				imgArr[i] = imread(V8_TO_CV_STR(args[0][i]->ToString()));
 			}
 
-			fastNlMeansDenoisingMulti(imgArr, args[1]->ToString(), 3, 3, 7, 21);
+			fastNlMeansDenoisingMulti(imgArr, V8_TO_CV_STR(args[1]->ToString()), 3, 3, 7, 21);
 			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]->ToString()));
 		}
 	}
@@ -69,10 +73,10 @@ namespace denoiser {
 			const int length = isolate->images.length;
 			Mat* imgArr = Mat[length];
 			for(int i = 0; i < length; i++) {
-				imgArr[i] = imread(args[0][i]->ToString());
+				imgArr[i] = imread(V8_TO_CV_STR(args[0][i]->ToString()));
 			}
 
-			fastNlMeansDenoisingColoredMulti(imgArr, args[1]->ToString(), 3, 3, 7, 21);
+			fastNlMeansDenoisingColoredMulti(imgArr, V8_TO_CV_STR(args[1]->ToString()), 3, 3, 7, 21);
 			args.GetReturnValue().Set(String::NewFromUtf8(isolate, args[1]->ToString()));
 		}
 	}
@@ -83,7 +87,7 @@ namespace denoiser {
 			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "hasImageColors: Your argument is not a string")));
 			return;
 		} else {
-			args.GetReturnValue().Set(Boolean::New(isolate, imread(args[0]->ToString()).channels() == 3));
+			args.GetReturnValue().Set(Boolean::New(isolate, imread(V8_TO_CV_STR(args[0]->ToString())).channels() == 3));
 		}
 	}
 
