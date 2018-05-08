@@ -11,9 +11,7 @@ int main(void) {
     char *rel_line = NULL;
     size_t rel_len = 0;
 
-    release_files_content = popen("cat /etc/*-release", "r");
-
-    if(release_files_content == NULL) {
+    if((release_files_content = popen("cat /etc/*-release", "r")) == NULL) {
         printf("No such file detected\n");
         exit(EXIT_FAILURE);
     }
