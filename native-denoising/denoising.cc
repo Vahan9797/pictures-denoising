@@ -14,6 +14,7 @@ namespace denoiser {
 	using v8::Value;
 	using cv::Mat;
 	using cv::imread;
+	using cv::imwrite;
 	using cv::fastNlMeansDenoising;
 	using cv::fastNlMeansDenoisingMulti;
 	using cv::fastNlMeansDenoisingColored;
@@ -42,9 +43,10 @@ namespace denoiser {
 			Isolate* isolate = args.GetIsolate();
 			String::Utf8Value arg0(args[0]);
 			String::Utf8Value arg1(args[1]);
-			Mat img = imread(V8_TO_C_STR(arg0));
-			fastNlMeansDenoising(img, V8_TO_C_STR(arg1), 3, 3, 7, 21);
-			args.GetReturnValue().Set(String::NewFromUtf8(isolate, arg1));
+			Mat img = imread(V8_TO_C_STR(arg0)), denoised_img;
+			fastNlMeansDenoising(img, denoised_img, 30.0, 7, 21);
+			imwrite(V8_TO_C_STR(arg1), denoised_img);
+			args.GetReturnValue().Set(String::NewFromUtf8(isolate, *arg1));
 		};
 	}
 
@@ -53,25 +55,31 @@ namespace denoiser {
 			Isolate* isolate = args.GetIsolate();
 			String::Utf8Value arg0(args[0]);
 			String::Utf8Value arg1(args[1]);
-			Mat img = imread(V8_TO_C_STR(arg0));
-			fastNlMeansDenoisingColored(img, V8_TO_C_STR(arg1), 3, 3, 7, 21);
-			args.GetReturnValue().Set(String::NewFromUtf8(isolate, arg1));
+			Mat img = imread(V8_TO_C_STR(arg0)), denoised_img;
+			fastNlMeansDenoisingColored(img, denoised_img, 30.0, 7, 21);
+			imwrite(V8_TO_C_STR(arg1), denoised_img);
+			args.GetReturnValue().Set(String::NewFromUtf8(isolate, *arg1));
 		}
 	}
 
-	void multiDenoisingGrayscale(const FunctionCallbackInfo<Value>& args) {
+/*	void multiDenoisingGrayscale(const FunctionCallbackInfo<Value>& args) {
 		if(validateArguments(args, true)) {
 			Isolate* isolate = args.GetIsolate();
 			const int length = args[0]->length;
-			Mat* imgArr = Mat[length];
+			Mat* imgArr = new Mat[length];
+			Mat* denoisedImgArr = new Mat[length];
 			for(int i = 0; i < length; i++) {
-				String::Utf8Value argi(args[0][i]);
-				imgArr[i] = (Mat) imread(V8_TO_C_STR(argi));
+				String::Utf8Value argi(args[0]->Arguments(i)->);
+				imgArr[i] = imread(V8_TO_C_STR(argi));
 			}
 
 			String::Utf8Value arg1(args[1]);
-			fastNlMeansDenoisingMulti(imgArr, V8_TO_C_STR(arg1), 3, 3, 7, 21);
-			args.GetReturnValue().Set(String::NewFromUtf8(isolate, arg1));
+			fastNlMeansDenoisingMulti(imgArr, denoisedImgArr, 30.0, 7, 21);
+
+			for(int i = 0; i < length; i++) {
+				imwrite(V8_TO_C_STR(arg1), denoisedImgArr[i]);
+			}
+			args.GetReturnValue().Set(String::NewFromUtf8(isolate, *arg1));
 		}
 	}
 
@@ -79,17 +87,22 @@ namespace denoiser {
 		if(validateArguments(args, true)) {
 			Isolate* isolate = args.GetIsolate();
 			const int length = args[0]->length;
-			Mat* imgArr = Mat[length];
+			Mat* imgArr = new Mat[length];
+			Mat* denoisedImgArr = new Mat[length];
 			for(int i = 0; i < length; i++) {
 				String::Utf8Value argi(args[0][i]);
-				imgArr[i] = (Mat) imread(V8_TO_C_STR(argi));
+				imgArr[i] = imread(V8_TO_C_STR(argi));
 			}
 
 			String::Utf8Value arg1(args[1]);
-			fastNlMeansDenoisingColoredMulti(imgArr, V8_TO_C_STR(arg1), 3, 3, 7, 21);
-			args.GetReturnValue().Set(String::NewFromUtf8(isolate, arg1));
+			fastNlMeansDenoisingColoredMulti(imgArr, denoisedImgArr, 30.0, 7, 21);
+
+			for(int i = 0; i < length; i++) {
+				imwrite(V8_TO_C_STR(arg1), denoisedImgArr[i]);
+			}
+			args.GetReturnValue().Set(String::NewFromUtf8(isolate, *arg1));
 		}
-	}
+	}*/
 
 	void hasImageColors(const FunctionCallbackInfo<Value>& args) {
 		Isolate* isolate = args.GetIsolate();
@@ -105,8 +118,8 @@ namespace denoiser {
 	void Init(Local<Object> exports) {
 		NODE_SET_METHOD(exports, "singleDenoisingGrayscale", singleDenoisingGrayscale);
 		NODE_SET_METHOD(exports, "singleDenoisingColored", singleDenoisingColored);
-		NODE_SET_METHOD(exports, "multiDenoisingGrayscale", multiDenoisingGrayscale);
-		NODE_SET_METHOD(exports, "multiDenoisingColored", multiDenoisingColored);
+/*		NODE_SET_METHOD(exports, "multiDenoisingGrayscale", multiDenoisingGrayscale);
+		NODE_SET_METHOD(exports, "multiDenoisingColored", multiDenoisingColored);*/
 		NODE_SET_METHOD(exports, "hasImageColors", hasImageColors);
 	}
 
