@@ -123,5 +123,5 @@ namespace denoiser {
 		NODE_SET_METHOD(exports, "hasImageColors", hasImageColors);
 	}
 
-	NODE_MODULE(NODE_GYP_MODULE_NAME, Init)
+	NODE_MODULE(NODE_GYP_MODULE_NAME, Init);
 } // namespace denoiser
