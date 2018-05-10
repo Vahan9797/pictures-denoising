@@ -35,29 +35,37 @@ int main(void) {
 }
 
 void configureBindingGyp(const char *dist) {
-    FILE *binding_gyp;
+    FILE *binding_gyp, *binding_gyp_temp;
     char *line = NULL;
+    const char binding_gyp_name[256] = "./binding.gyp";
+    const char binding_gyp_temp_name[256] = "./binding.gyp.temp";
+
     size_t len = 0;
 
-    if((binding_gyp = fopen("./binding.gyp", "r+")) == NULL) {
+    if((binding_gyp = fopen(binding_gyp_name, "r")) == NULL) {
         return;
     }
+
+    binding_gyp_temp = fopen(binding_gyp_temp_name, "a+");
 
     while(getline(&line, &len, binding_gyp) != -1) {
         if((strstr(line, "/usr/local/include") || strstr(line, "/usr/local/lib")) && dist == "Arch") {
             line = replace_str(line, "/usr/local", "/usr", 0);
-            printf("Line: %s", line);
-        }
-        if((strstr(line, "/usr/include") || strstr(line, "/usr/lib")) && dist == "Ubuntu") {
+            fprintf(binding_gyp_temp, "%s", line);
+        } else if((strstr(line, "/usr/include") || strstr(line, "/usr/lib")) && dist == "Ubuntu") {
             line = replace_str(line, "/usr", "/usr/local", 0);
-            printf("Line: %s", line);
+            fprintf(binding_gyp_temp, "%s", line);
+        } else {
+            fprintf(binding_gyp_temp, "%s", line);
         }
     }
-    fclose(binding_gyp);
 
-    if(line) {
-        free(line);
-    }
+    fclose(binding_gyp);
+    fclose(binding_gyp_temp);
+    remove(binding_gyp_name);
+    rename(binding_gyp_temp_name, binding_gyp_name);
+
+    if(line) free(line);
 }
 
 char *replace_str(char *str, char *orig, char *rep, int start) {
