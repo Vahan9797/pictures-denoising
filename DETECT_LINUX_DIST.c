@@ -37,8 +37,8 @@ int main(void) {
 void configureBindingGyp(const char *dist) {
     FILE *binding_gyp, *binding_gyp_temp;
     char *line = NULL;
-    const char binding_gyp_name[256] = "./binding.gyp";
-    const char binding_gyp_temp_name[256] = "./binding.gyp.temp";
+    const char binding_gyp_name[15] = "./binding.gyp";
+    const char binding_gyp_temp_name[20] = "./binding.gyp.temp";
 
     size_t len = 0;
 
